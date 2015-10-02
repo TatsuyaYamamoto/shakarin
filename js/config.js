@@ -3,6 +3,7 @@
 var config = {
     system: {
         FPS: 30,
+        finishFrame: 3000,
         gamescrean: {
             width: 640,
             height: 896
@@ -38,8 +39,8 @@ var properties = {
     image: {
         BACKGROUND: {
             id : "BACKGROUND",
-            ratioX: 0,
-            ratioY: 0,
+            ratioX: 0.5,
+            ratioY: 0.5,
             scale: 1,
             alpha: 1
         },
@@ -70,6 +71,13 @@ var properties = {
             ratioY: 0.9,
             scale: 1,
             alpha: 1
+        },
+        RAMEN: {
+            id : "RAMEN",
+            ratioX: 0.5,
+            ratioY: 0.9,
+            scale: 0.2,
+            alpha: 1
         }
     },
     ss: {
@@ -84,7 +92,7 @@ var properties = {
                 height:200
             },
             animations: {
-                kihon: {
+                N: {
                     frames: [0]
                 },
                 R_wait: {
@@ -134,9 +142,9 @@ var properties = {
         }
     },
     text: {
-        START: {
-            ratioX: 0.5,
-            ratioY: 0.93,
+        GAME_COUNT: {
+            ratioX: 0.8,
+            ratioY: 0.1,
             size: 0.05,
             family: "Courier",
             align: "center",
@@ -168,6 +176,10 @@ var manifest = {
         {
             id : "BUTTON_UD",
             src: "img/BUTTON_UD.png"
+        },
+        {
+            id : "RAMEN",
+            src: "img/RAMEN.png"
         }
     ],
     ss:[

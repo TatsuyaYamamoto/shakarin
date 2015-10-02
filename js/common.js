@@ -4,6 +4,9 @@ var _GameScrean;
 var _ScreenScale;
 
 var _GameFrame;
+var _nextCheckFrame;
+var _gameScore;
+
 var _TickListener;
 
 var _Queue;

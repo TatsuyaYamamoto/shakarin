@@ -163,7 +163,7 @@ function setTextContent(){
     }
 
 
-    _TextObj.START.text = "-Please tap on the display!-"
+    // _TextObj.START.text = "-Please tap on the display!-"
 
 }
 
