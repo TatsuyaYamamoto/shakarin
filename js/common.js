@@ -158,8 +158,8 @@ function drowRegistrationInfo(){
     var graphics = new createjs.Graphics();
     graphics.beginFill("#55acee");
 
-    var height = textObj.TEXT_REGISTRATION.getMeasuredHeight();
-    var width = textObj.TEXT_REGISTRATION.getMeasuredWidth()*1.5;
+    var height = _textObj.REGISTRATION.getMeasuredHeight();
+    var width = _textObj.REGISTRATION.getMeasuredWidth()*1.5;
 
     graphics
          .moveTo(0,0)
