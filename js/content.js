@@ -61,8 +61,7 @@ function handleComplete() {
         createjs.Ticker.removeEventListener("tick", _tickListener);
 
         addAllEventListener();
-        //開発用、topState()
-        gameState();
+        topState();
 
     })
 
@@ -122,7 +121,7 @@ function setSoundContent(){
 
 function soundTurnOff(){
     _isSoundMute = true;
-    for(var key in soundObj){
+    for(var key in _soundObj){
         if(properties.sound[key].canMute){
             _soundObj[key].muted = true;
         }
@@ -132,7 +131,7 @@ function soundTurnOff(){
 function soundTurnOn(){
 
     _isSoundMute = false;
-    for(var key in soundObj){
+    for(var key in _soundObj){
         if(properties.sound[key].canMute){
             _soundObj[key].muted = false;
         }
@@ -160,11 +159,8 @@ function setTextContent(){
         _textObj[key].color = properties.text[key].color;
         _textObj[key].textAlign = properties.text[key].align;
         _textObj[key].lineHeight = _gameScrean.width * properties.text[key].lineHeight;
+        _textObj[key].text = properties.text[key].text;
     }
-
-
-    // _textObj.START.text = "-Please tap on the display!-"
-
 }
 
 

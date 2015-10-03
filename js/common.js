@@ -132,6 +132,9 @@ function keyDownEvent(event){
 //イベントリスナー登録--------------------------------
 
 function addAllEventListener(){
+
+
+    /* ゲーム操作用 */
     _imageObj.BUTTON_LEFT.addEventListener("mousedown", function() {
     	_player.shake("L");
     });
@@ -146,5 +149,92 @@ function addAllEventListener(){
     _imageObj.BUTTON_BOTTOM.addEventListener("mousedown", function() {
     	_player.shake("B");
     });
+
+    _imageObj.BUTTON_BOTTOM.addEventListener("mousedown", function() {
+        _player.shake("B");
+    });
+
+    /* 画面遷移用 */
+    _imageObj.BUTTON_START.addEventListener("mousedown", function() {
+        createjs.Ticker.removeEventListener("tick", _tickListener);
+        _soundObj.ZENKAI.stop();
+        _soundObj.OK.play("none",0,0,0,1,0);
+        gameState();
+    });
+
+    _imageObj.BUTTON_HOW.addEventListener("mousedown", function() {
+        createjs.Ticker.removeEventListener("tick", _tickListener);
+        _soundObj.OK.play("none",0,0,0,1,0);
+        howState();
+    });
+
+    _imageObj.BUTTON_CREDIT.addEventListener("mousedown",function(){
+        createjs.Ticker.removeEventListener("tick", _tickListener);
+        _soundObj.OK.play("none",0,0,0,1,0);
+        creditState();      
+    })
+
+    // _imageObj.BUTTON_BACK_MENU_FROM_HOW
+
+    _imageObj.BUTTON_BACK_MENU_FROM_CREDIT.addEventListener( 'mousedown', function() {
+        _soundObj.BACK.play("none",0,0,0,1,0);
+        menuState();
+    });
+
+    _imageObj.BUTTON_BACK_MENU_FROM_GAME.addEventListener( 'mousedown', function() {
+        createjs.Ticker.removeEventListener("tick", _tickListener);
+        _soundObj.BACK.play("none",0,0,0,1,0);
+        menuState();
+    });
+
+    _imageObj.BUTTON_RESTART.addEventListener( 'mousedown', function() {
+        createjs.Ticker.removeEventListener("tick", _tickListener);
+        _soundObj.BACK.play("none",0,0,0,1,0);
+        gameState();
+    });
+
+
+    /* ログイン */
+    // imageObj.BUTTON_TWITTER_LOGIN.addEventListener("mousedown", function(){
+    //     window.location.href = config.api.origin + config.api.path.login + "?game_name=honocar";
+    // });
+
+    // imageObj.BUTTON_TWITTER_LOGOUT.addEventListener("mousedown", function(){
+    //     if(confirm("ログアウトします。ランキング登録はログイン中のみ有効です。")){
+    //         window.location.href = config.api.origin + config.api.path.logout + "?game_name=honocar";
+    //     }
+    // });
+
+    /* リンク */
+
+    _textObj.LINK_SOUNDEFFECT.addEventListener("mousedown", function(){
+        window.location.href = config.link.soundeffect;
+    });
+    _textObj.LINK_ONJIN.addEventListener("mousedown", function(){
+        window.location.href = config.link.on_jin;
+    });
+    _textObj.LINK_SOKONTOKORO.addEventListener("mousedown", function(){
+        window.location.href = config.link.sokontokoro;
+    });
+    _textObj.LINK_SANZASHI.addEventListener("mousedown", function(){
+        window.location.href = config.link.sanzashi;
+    });
+    // _imageObj.BUTTON_TWITTER_TOP.addEventListener("mousedown", function(){
+    //     window.location.href=config.link.t28_twitter;
+    // });
+    // _ssObj.BUTTON_TWITTER_GAMEOVER.addEventListener("mousedown", function(){
+    //     window.location.href="https://twitter.com/intent/tweet?hashtags=しゃかりん！&text="+getTweetText()+"&url=http://games.sokontokoro-factory.net/shakarin/";
+    // });
+
+    /* サウンド用イベント */
+    window.addEventListener("blur", function(){
+        soundTurnOff();
+        createjs.Ticker.setPaused(true);
+    });
+    window.addEventListener("focus", function(){      
+        soundTurnOn();
+        createjs.Ticker.setPaused(false);
+    });
+
 }
 

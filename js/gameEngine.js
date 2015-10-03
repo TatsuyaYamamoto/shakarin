@@ -5,11 +5,7 @@ function gameInit(){
 	//初期値はplayCharacter=honoka
 	_player = new Player(_playCharacter);
 
-    //フレーム数リセット
-	_gameFrame = 0;
-	_shakeCount = 0;
-	_nextCheckFrame = config.system.firstCheckFrame;
-
+	gameStatusReset();
 	//ボタン無効化
     allButtonDisable();
 
@@ -18,79 +14,82 @@ function gameInit(){
 	window.addEventListener("keydown", keyDownEvent);
 
 
-	// 一時的
-	addChildren([
-		_imageObj.BACKGROUND, 
-		_imageObj.BUTTON_LEFT, 
-		_imageObj.BUTTON_RIGHT, 
-		_imageObj.BUTTON_TOP, 
-		_imageObj.BUTTON_BOTTOM, 
-		_player.img, 
-		_imageObj.RAMEN, 
-		_textObj.GAME_COUNT
-		])
-
-    _soundObj.GAME_LOOP.play("any",0,0,-1,0.6,0);
-
-	//タイマーに関数セット
-    // _tickListener = createjs.Ticker.addEventListener("tick", gameReady);
-	timerAnimation();
-
-	_tickListener = createjs.Ticker.addEventListener("tick", processGame);
+	// ゲームスタートカウントスタート
+    _tickListener = createjs.Ticker.addEventListener("tick", gameReady);
+	
 }
 
 
 
 
 // ゲームスタートカウント-----------------------------------------
-// function gameReady(){
-// 	GameFrame ++;
+function gameReady(){
+	_gameFrame ++;
 
-// 	switch(gameFrame){
-// 		case 1:
-// 		    gameStage.addChild(imageObj.GAME_BACKGROUND);
-// 		    gameStage.addChild(player.img);
-// 			gameStage.update();
-// 			break;	
-// 		case 10:
-// 		    soundObj.SOUND_PI1.play();
-// 	        textObj.TETX_GAMESTART_COUNT.text = "-2-";
-// 		    gameStage.addChild(imageObj.GAME_BACKGROUND);
-// 		    gameStage.addChild(textObj.TETX_GAMESTART_COUNT);
-// 		    gameStage.addChild(player.img);
-// 			gameStage.update();
-// 			break;
-// 		case 30:
-// 		    soundObj.SOUND_PI1.play();
-// 	        textObj.TETX_GAMESTART_COUNT.text = "-1-";
-// 		    gameStage.addChild(imageObj.GAME_BACKGROUND);
-// 		    gameStage.addChild(textObj.TETX_GAMESTART_COUNT);
-// 		    gameStage.addChild(player.img);
-// 			gameStage.update();
-// 			break;
-// 		case 50:
-// 		    soundObj.SOUND_PI2.play();
-// 		    gameStage.removeAllChildren();
-// 	    	gameStatusReset();
-// 			drawGameScrean();
-// 		    createjs.Ticker.removeEventListener("tick", _TickListener);
+	switch(_gameFrame){
+		case 1:
+		    _gameStage.addChild(_imageObj.BACKGROUND);
+		    _gameStage.addChild(_player.img);
+			_gameStage.update();
+			break;	
+		case 10:
+		    _soundObj.PI1.play();
+	        _textObj.GAMESTART_COUNT.text = "-2-";
+		    _gameStage.addChild(_imageObj.BACKGROUND);
+		    _gameStage.addChild(_textObj.GAMESTART_COUNT);
+		    _gameStage.addChild(_player.img);
+			_gameStage.update();
+			break;
+		case 30:
+		    _soundObj.PI1.play();
+	        _textObj.GAMESTART_COUNT.text = "-1-";
+		    _gameStage.addChild(_imageObj.BACKGROUND);
+		    _gameStage.addChild(_textObj.GAMESTART_COUNT);
+		    _gameStage.addChild(_player.img);
+			_gameStage.update();
+			break;
+		case 50:
+		    _soundObj.PI2.play();
+		    _gameStage.removeAllChildren();
+	    	gameStatusReset();
+		    createjs.Ticker.removeEventListener("tick", _tickListener);
 
-// 		    //ゲーム処理開始
-// 			tickListener = createjs.Ticker.addEventListener("tick", processGame);
-// 			//キーボード用keycodeevent登録
-// 			window.addEventListener("keydown", keyDownEvent);
-// 		    _SoundObj.SOUND_SUSUME_LOOP.play("late",0,0,-1,0.6,0);
-// 			break;
-// 	}
-// }
+			addChildren([
+				_imageObj.BACKGROUND, 
+				_imageObj.BUTTON_LEFT, 
+				_imageObj.BUTTON_RIGHT, 
+				_imageObj.BUTTON_TOP, 
+				_imageObj.BUTTON_BOTTOM, 
+				_player.img, 
+				_imageObj.RAMEN, 
+				_textObj.GAME_COUNT
+				])
 
+
+		    // タイマーアニメーション開始
+			timerAnimation();
+		    //ゲーム処理開始
+			_tickListener = createjs.Ticker.addEventListener("tick", processGame);
+			//キーボード用keycodeevent登録
+			window.addEventListener("keydown", keyDownEvent);
+			_soundObj.GAME_LOOP.play("any",0,0,-1,0.6,0);
+			break;
+	}
+}
+
+function gameStatusReset(){
+	_gameFrame = 0;
+	_gameScore = 0;
+	_shakeCount = 0;
+	_nextCheckFrame = config.system.firstCheckFrame;
+}
 
 // ゲーム処理-----------------------------------------
 function processGame(){
 
 	_gameFrame ++;
 
-	_textObj.GAME_COUNT.text = _shakeCount + "しゃか！";
+	_textObj.SCORE_COUNT.text = _shakeCount + "しゃか！";
 
 	if (_gameFrame === _nextCheckFrame){
 		_player.changeDirection();
@@ -194,9 +193,6 @@ function allButtonDisable(){
 
 function finish(){
 	_gameScore = _shakeCount;
-	_player.setDirection("N");
-	_player.wait();
-	checkButtonStatus()
 
     _soundObj.GAME_LOOP.stop();
 	_soundObj.GAME_END.play("late",0,0,0,0.6,0);
@@ -208,6 +204,6 @@ function finish(){
 	//キーボード用keycodeevent削除
 	window.removeEventListener("keydown", keyDownEvent);
 	//stateマシン内、ゲームオーバー状態に遷移
-
+	gameOverState();
 }
 
