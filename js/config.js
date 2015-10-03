@@ -376,7 +376,7 @@ var properties = {
             align: "center",
             color: "#ffffff",
             lineHeight: 0.1, 
-            test: "ランキングシステム　通信完了！"
+            text: "ランキングシステム　通信完了！"
         }
     },
     api: {
