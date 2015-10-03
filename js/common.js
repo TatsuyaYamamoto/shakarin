@@ -74,6 +74,12 @@ function initGameScreenScale(){
 
 }
 
+function addChildren(array){
+    for(var key in array){
+        _GameStage.addChild(array[key]);
+    }
+}
+
 
 // アイコン画像URL取得-------------
 
@@ -108,6 +114,23 @@ function setUserInfo(){
         d.reject();
     });
     return d.promise();
+}
+
+// キーボードキー
+function keyDownEvent(event){
+
+    if(event.which == 37 && _ImageObj.BUTTON_LEFT.mouseEnabled){
+        _Player.shake("L");
+    }
+    if(event.keyCode == 39 && _ImageObj.BUTTON_RIGHT.mouseEnabled){
+        _Player.shake("R");
+    }
+    if(event.keyCode == 38 && _ImageObj.BUTTON_UP.mouseEnabled){
+        _Player.shake("U");     
+    }
+    if(event.keyCode == 40 && _ImageObj.BUTTON_DOWN.mouseEnabled){
+        _Player.shake("D");
+    }
 }
 
 //イベントリスナー登録--------------------------------

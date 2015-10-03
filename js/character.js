@@ -21,33 +21,42 @@ Player.prototype.shake = function(direction){
     this.img.gotoAndPlay(direction + i);
 
 }
-Player.prototype.wait = function(direction){
-    this.img.gotoAndPlay(direction + "_wait");
+Player.prototype.wait = function(){
+    this.img.gotoAndPlay(this.direction + "_wait");
 }
 
+Player.prototype.setDirection = function(direction){
+    this.direction = direction;    
+}
+
+Player.prototype.getDirection = function(){
+    return this.direction;
+}
 
 Player.prototype.changeDirection = function(){
+
+    var lastDirection = this.direction;
 
     //ランダムに方向が決定
     var i = Math.floor(Math.random() * 4);
     switch(i){
         case 0:
-            direction = "L";
+            this. direction = "L";
             break;
         case 1:
-            direction = "R";
+            this. direction = "R";
             break;
         case 2:
-            direction = "U";
+            this. direction = "U";
             break;
         case 3:
-            direction = "D";
+            this. direction = "D";
             break;
     }
-
     // directionに変更がなければwaitアニメなし
-    if(this.direction !== direction){
-        _Player.wait(direction);
+    if(this.direction !== lastDirection){
+        _Player.wait();
     }
-    this.direction = direction;    
 }
+
+

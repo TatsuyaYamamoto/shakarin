@@ -3,7 +3,10 @@
 var config = {
     system: {
         FPS: 30,
-        finishFrame: 3000,
+        timeLength: {
+            x: 640 * 3,
+            y: 896 * 3
+        },
         gamescrean: {
             width: 640,
             height: 896
@@ -11,7 +14,8 @@ var config = {
         anime: {
             registrationFeedTime: 500
         },
-        difficultyLength: 0.3
+        difficultyLength: 0.3, 
+        firstCheckFrame: 10
     },
     api:{
         origin: "http://ec2-54-65-78-59.ap-northeast-1.compute.amazonaws.com:8080", 
@@ -74,9 +78,9 @@ var properties = {
         },
         RAMEN: {
             id : "RAMEN",
-            ratioX: 0.5,
-            ratioY: 0.9,
-            scale: 0.2,
+            ratioX: 0.1,
+            ratioY: 0.1,
+            scale: 0.3,
             alpha: 1
         }
     },
@@ -92,7 +96,7 @@ var properties = {
                 height:200
             },
             animations: {
-                N: {
+                N_wait: {
                     frames: [0]
                 },
                 R_wait: {
@@ -132,7 +136,7 @@ var properties = {
                     frames: [12]
                 }
             },
-            firstAnimation: "kihon"
+            firstAnimation: "N_wait"
         }
     },
     sound: {
