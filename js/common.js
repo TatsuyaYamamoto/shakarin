@@ -129,6 +129,64 @@ function keyDownEvent(event){
     }
 }
 
+// ランキング登録-------------
+function registration(){
+
+    $.ajax({
+        type: "POST",
+        url: config.api.origin + "/api/game/scores/shakarin",
+        xhrFields: {
+            withCredentials: true
+        },
+        contentType: 'application/json',
+        data: JSON.stringify({
+            category: "",
+            point: _gameScore
+        })
+    }).done(function(data, status, xhr) {
+        drowRegistrationInfo();
+    }).fail(function(){
+        if(confirm("ログインセッションが無効になっています。再ログインします。")){
+            window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+        }
+    });
+}
+
+
+function drowRegistrationInfo(){
+    // Graphicsのインスタンスを作成します。
+    var graphics = new createjs.Graphics();
+    graphics.beginFill("#55acee");
+
+    var height = textObj.TEXT_REGISTRATION.getMeasuredHeight();
+    var width = textObj.TEXT_REGISTRATION.getMeasuredWidth()*1.5;
+
+    graphics
+         .moveTo(0,0)
+         .lineTo(width,0)
+         .lineTo(width,height)
+         .lineTo(0,height)
+         .closePath();
+
+    var shape = new createjs.Shape(graphics);
+    shape.regX = _textObj.REGISTRATION.getMeasuredWidth()/2;
+    shape.regY = _textObj.REGISTRATION.getMeasuredHeight()/2;
+    shape.x = _textObj.REGISTRATION.x * 0.5;
+    shape.y = _textObj.REGISTRATION.y + _textObj.REGISTRATION.getMeasuredHeight()/4;
+
+    shape.alpha = 0;
+    _textObj.REGISTRATION.alpha = 0;
+
+    _gameStage.addChild(shape);
+    _gameStage.addChild(_textObj.REGISTRATION);
+
+    // フェードインアニメーション
+    createjs.Tween.get(shape).to({alpha:1}, config.system.anime.registrationFeedTime);
+    createjs.Tween.get(_textObj.REGISTRATION).to({alpha:1}, config.system.anime.registrationFeedinTime);
+}
+
+
+
 //イベントリスナー登録--------------------------------
 
 function addAllEventListener(){

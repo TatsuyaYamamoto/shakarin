@@ -25,7 +25,7 @@ function topState(){
             break;
     }
 
-    _gameStage.addChild(_textObj.TEXT_START);
+    _gameStage.addChild(_textObj.START);
 
     _gameStage.update();
 

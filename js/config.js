@@ -9,7 +9,7 @@ var config = {
             height: 896
         },
         anime: {
-            registrationFeedTime: 500
+            registrationFeedinTime: 500
         },
         difficultyLength: 0.3, 
         firstCheckFrame: 10
@@ -295,7 +295,7 @@ var properties = {
         }
     },
     text: {
-        TEXT_START: {
+        START: {
             ratioX: 0.5,
             ratioY: 0.93,
             size: 0.05,
@@ -367,6 +367,16 @@ var properties = {
             align: "center",
             lineHeight: 0.05,
             text: "プロジェクトラブライブ！\rhttp://www.lovelive-anime.jp"
+        },
+        REGISTRATION: {
+            ratioX: 0.4,
+            ratioY: 0.9,
+            size: 0.04,
+            family: "Courier",
+            align: "center",
+            color: "#ffffff",
+            lineHeight: 0.1, 
+            test: "ランキングシステム　通信完了！"
         }
     },
     api: {
