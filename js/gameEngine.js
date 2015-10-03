@@ -103,6 +103,9 @@ function processGame(){
 
 function timerAnimation(){
 
+	// 初期化
+	_imageObj.RAMEN.x = _gameScrean.width * 0.1
+
     createjs.Tween.get(_imageObj.RAMEN)
         .to({x : _gameScrean.width * 0.9}, config.system.timeLength)
 			.call(finish);
@@ -192,8 +195,12 @@ function allButtonDisable(){
 // ゲーム終了------------------------------------------------------
 
 function finish(){
-	_gameScore = _shakeCount;
 
+	_player.setDirection("N");
+	_player.wait();
+
+	_gameScore = _shakeCount;
+	createjs.Tween.removeTweens(_imageObj.RAMEN);
     _soundObj.GAME_LOOP.stop();
 	_soundObj.GAME_END.play("late",0,0,0,0.6,0);
 

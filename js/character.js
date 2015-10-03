@@ -10,6 +10,7 @@ function Player(playCharacter){
 
     this.img.gotoAndPlay("N");
     this.direction = "N";
+    this.wait();
 
 }
 
