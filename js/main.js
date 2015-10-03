@@ -52,7 +52,7 @@ window.onload = function(){
 	if(/iPhone/.test(ua)) {
 	    _gameStage.removeAllChildren();
 	    var text = new createjs.Text();
-	    setTextProperties(text, _GameScrean.width*0.5, _gameScrean.height*0.5, _gameScrean.width*0.05, "Courier", "center", _gameScrean.width*0.04);
+	    setTextProperties(text, _gameScrean.width*0.5, _gameScrean.height*0.5, _gameScrean.width*0.05, "Courier", "center", _gameScrean.width*0.04);
 	    text.text = "-Please tap on the display!-"
 
 	    _gameStage.addChild(text);
