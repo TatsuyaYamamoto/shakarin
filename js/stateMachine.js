@@ -2,47 +2,44 @@
 function loadState(){
 
 
-    _TextObj.TEXT_LOADING_STATUS = new createjs.Text("", _GameScrean.width*0.1+"20px Impact", "");
-    _TextObj.TEXT_LOADING_STATUS.x = _GameScrean.width/2;
-    _TextObj.TEXT_LOADING_STATUS.y = _GameScrean.height/2;
-    _TextObj.TEXT_LOADING_STATUS.textAlign = "center";
+    _textObj.TEXT_LOADING_STATUS = new createjs.Text("", _gameScrean.width*0.1+"20px Impact", "");
+    _textObj.TEXT_LOADING_STATUS.x = _gameScrean.width/2;
+    _textObj.TEXT_LOADING_STATUS.y = _gameScrean.height/2;
+    _textObj.TEXT_LOADING_STATUS.textAlign = "center";
 
-    _GameStage.addChild(_TextObj.TEXT_LOADING_STATUS);
+    _gameStage.addChild(_textObj.TEXT_LOADING_STATUS);
     loadAnimation();
+
 
 }
 
 // TOP画面------------------------------------------
 function topState(){
 
-    gameStage.removeAllChildren();
-    gameStage.addChild(imageObj.GAME_BACKGROUND);
+    _gameStage.removeAllChildren();
+    _gameStage.addChild(_imageObj.BACKGROUND);
 
-    switch(playCharacter){
-        case "honoka":
-            gameStage.addChild(imageObj.TITLE_LOGO);
-            break;
-        case "erichi":
-            gameStage.addChild(imageObj.TITLE_LOGO_E);
+    switch(_playCharacter){
+        case "rin":
+            _gameStage.addChild(_imageObj.TITLE_LOGO);
             break;
     }
 
-    gameStage.addChild(textObj.TEXT_START);
+    _gameStage.addChild(_textObj.TEXT_START);
 
+    _gameStage.update();
 
-    gameStage.update();
-
-    if(soundObj.SOUND_ZENKAI.playState != createjs.Sound.PLAY_SUCCEEDED){
-        soundObj.SOUND_ZENKAI.play("none",0,0,-1,0.4,0);
+    if(_soundObj.ZENKAI.playState != createjs.Sound.PLAY_SUCCEEDED){
+        _soundObj.ZENKAI.play("none",0,0,-1,0.4,0);
     }
 
     function gotoMenu(){
-        soundObj.SOUND_OK.play("none",0,0,0,1,0);
+        _soundObj.OK.play("none",0,0,0,1,0);
         menuState();
-        imageObj.GAME_BACKGROUND.removeEventListener("click", gotoMenu);
+        _imageObj.BACKGROUND.removeEventListener("click", gotoMenu);
     }
 
-    imageObj.GAME_BACKGROUND.addEventListener("click", gotoMenu);
+    _imageObj.BACKGROUND.addEventListener("click", gotoMenu);
 
 }
 
@@ -50,36 +47,37 @@ function topState(){
 // MENU画面------------------------------------------
 function menuState(){
 
-    gameStage.removeAllChildren();
-    gameStage.addChild(imageObj.GAME_BACKGROUND);
-    gameStage.addChild(imageObj.WHITE_SHEET);
+    _gameStage.removeAllChildren();
+    _gameStage.addChild(_imageObj.BACKGROUND);
 
-
-    if(isLogin){
-        gameStage.addChild(imageObj.BUTTON_TWITTER_LOGOUT);
-        gameStage.addChild(imageObj.TWITTER_ICON);
+    if(_isLogin){
+        _gameStage.addChild(_imageObj.BUTTON_TWITTER_LOGOUT);
+        _gameStage.addChild(_imageObj.TWITTER_ICON);
     }else{
-        gameStage.addChild(imageObj.BUTTON_TWITTER_LOGIN);
+        _gameStage.addChild(_imageObj.BUTTON_TWITTER_LOGIN);
     }
 
-    gameStage.addChild(imageObj.BUTTON_START);
-    gameStage.addChild(imageObj.BUTTON_HOW_TO);
-    gameStage.addChild(imageObj.BUTTON_RANKING);
-    gameStage.addChild(imageObj.BUTTON_CREDIT);
-    gameStage.addChild(imageObj.BUTTON_REGUSTRATION_RANKING);
-    gameStage.addChild(imageObj.BUTTON_TWITTER_TOP);
-    gameStage.addChild(ssObj.BUTTON_SOUND_SS);
-    gameStage.addChild(imageObj.MENU_LOGO);
 
-    ssObj.BUTTON_CHANGE_CHARA.gotoAndPlay(playCharacter);
-    gameStage.addChild(ssObj.BUTTON_CHANGE_CHARA);
+    addChildren([
+        _imageObj.BUTTON_START,
+        _imageObj.BUTTON_HOW,
+        _imageObj.BUTTON_RANKING,
+        _imageObj.BUTTON_CREDIT,
+        _imageObj.BUTTON_TWITTER_TOP,
+        _ssObj.BUTTON_SOUND_SS,
+        _imageObj.MENU_LOGO
+    ]);
 
-    if(soundObj.SOUND_ZENKAI.playState != createjs.Sound.PLAY_SUCCEEDED){
-        soundObj.SOUND_ZENKAI.play("none",0,0,-1,0.4,0);
+
+    // ssObj.BUTTON_CHANGE_CHARA.gotoAndPlay(playCharacter);
+    // gameStage.addChild(ssObj.BUTTON_CHANGE_CHARA);
+
+    if(_soundObj.ZENKAI.playState != createjs.Sound.PLAY_SUCCEEDED){
+        _soundObj.ZENKAI.play("none",0,0,-1,0.4,0);
     }
 
-    tickListener = createjs.Ticker.addEventListener("tick", function(){
-        gameStage.update();
+    _tickListener = createjs.Ticker.addEventListener("tick", function(){
+        _gameStage.update();
     });
 
 
@@ -95,72 +93,59 @@ function howToPlayState(){
 //クレジット画面------------------------------------------
 function creditState(){
 
-    gameStage.removeAllChildren();
-    gameStage.addChild(imageObj.GAME_BACKGROUND);
-    gameStage.addChild(imageObj.BUTTON_BACK_TOP_FROM_CREDIT);
-    gameStage.addChild(textObj.TEXT_LINK_ME);
-    gameStage.addChild(textObj.TEXT_LINK_SAN);
-    gameStage.addChild(textObj.TEXT_LINK_LOVELIVE);
-    gameStage.addChild(textObj.TEXT_LINK_1);
-    gameStage.addChild(textObj.TEXT_LINK_2);
+    _gameStage.removeAllChildren();
 
+    addChildren([
+        _imageObj.BACKGROUND, 
+        _imageObj.BUTTON_BACK_MENU_FROM_CREDIT,
+        _textObj.LINK_SOKONTOKORO, 
+        _textObj.LINK_SANZASHI, 
+        _textObj.LINK_LOVELIVE, 
+        _textObj.LINK_SOUNDEFFECT, 
+        _textObj.LINK_ONJIN
+    ]);
 
-
-    gameStage.update();
-}
-// ランキング画面------------------------------------------
-function rankingState(){
-
-    gameStage.removeAllChildren();
-    gameStage.addChild(imageObj.GAME_BACKGROUND);
-    gameStage.addChild(imageObj.BUTTON_BACK_TOP_FROM_RANKING);
-    gameStage.addChild(textObj.TEXT_RANKING);
-
-    //テキストボックスを表示する
-    $("#rankingName").show();
-
-
-    gameStage.update();
+    _gameStage.update();
 }
 
 // ゲーム画面------------------------------------------
 function gameState(){
 
-    _GameStage.removeAllChildren();
+    _gameStage.removeAllChildren();
     gameInit();
 
 }
 // GAMEOVER画面------------------------------------------
 function gameOverState(){
 
-    player.img.gotoAndPlay("down");
 
-    gameStage.removeAllChildren();
+    _gameStage.removeAllChildren();
 
-    switch(playCharacter){
-        case "honoka":
-            ssObj.BUTTON_TWITTER_GAMEOVER_SS.gotoAndPlay("honoka");
-            break;
-        case "erichi":
-            ssObj.BUTTON_TWITTER_GAMEOVER_SS.gotoAndPlay("erichi");
+
+    addChildren([
+        _imageObj.BACKGROUND,
+        _player.img,
+        _imageObj.BUTTON_BACK_MENU_FROM_GAME,
+        _imageObj.BUTTON_RESTART,
+        _textObj.GAME_COUNT,
+        _imageObj.GAMEOVER
+    ]);
+
+    switch(_playCharacter){
+        case "rin":
+            _gameStage.addChild(_imageObj.BUTTON_TWITTER_GAMEOVER_RIN);
             break;
     }
 
-    gameStage.addChild(imageObj.GAME_BACKGROUND);
-    gameStage.addChild(player.img);
-    gameStage.addChild(imageObj.BUTTON_BACK_TOP);
-    gameStage.addChild(imageObj.BUTTON_RESTART);
-    gameStage.addChild(ssObj.BUTTON_TWITTER_GAMEOVER_SS);
-    gameStage.addChild(textObj.TEXT_GAME_COUNT);
-    gameStage.addChild(imageObj.GAMEOVER);
 
-    if(isLogin){
+
+    if(_isLogin){
         // ランキング登録
         registration();
     }
 
-    tickListener = createjs.Ticker.addEventListener("tick", function(){
-        gameStage.update();
+    _tickListener = createjs.Ticker.addEventListener("tick", function(){
+        _gameStage.update();
     });
 
 
