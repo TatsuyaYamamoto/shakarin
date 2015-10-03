@@ -62,7 +62,7 @@ function menuState(){
     _gameStage.addChild(_imageObj.BUTTON_RANKING);
     _gameStage.addChild(_imageObj.BUTTON_CREDIT);
     _gameStage.addChild(_imageObj.BUTTON_TWITTER_TOP);
-    // _gameStage.addChild(ssObj.BUTTON_SOUND_SS);
+    _gameStage.addChild(_ssObj.BUTTON_SOUND_SS);
     _gameStage.addChild(_imageObj.MENU_LOGO);
 
     // ssObj.BUTTON_CHANGE_CHARA.gotoAndPlay(playCharacter);

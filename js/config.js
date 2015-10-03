@@ -3,7 +3,7 @@
 var config = {
     system: {
         FPS: 30,
-        timeLength: 100,
+        timeLength: 2000,
         gamescrean: {
             width: 640,
             height: 896
@@ -146,7 +146,7 @@ var properties = {
         BUTTON_TWITTER_GAMEOVER_RIN: {
             id : "BUTTON_TWITTER_GAMEOVER_RIN",
             ratioX: 0.25,
-            ratioY: 0.95,
+            ratioY: 0.25,
             scale: 1,
             alpha: 1
         },
@@ -232,6 +232,28 @@ var properties = {
                 }
             },
             firstAnimation: "N_wait"
+        },
+        BUTTON_SOUND_SS: {
+            id : "BUTTON_SOUND_SS",
+            ratioX: 0.9,
+            ratioY: 0.12,
+            scale: 1,
+            alpha: 1,
+            frames:{
+                width : 126,
+                height : 118
+            },
+            animations: {
+                on:{
+                    frames: [1,2,3],
+                    next: true,
+                    speed: 0.12
+                },
+                off: {
+                    frames: 0
+                }
+            },
+            firstAnimation: "on"
         }
     },
     sound: {
@@ -266,6 +288,10 @@ var properties = {
         PI2: {
             id: "SOUND_PI2",
             canMute: true
+        },
+        TURN_SWITCH: {
+            id: "TURN_SWITCH",
+            canMute: false
         }
     },
     text: {
@@ -426,6 +452,10 @@ var manifest = {
         {
             id : "SS_RIN",
             src: "img/SS_RIN.png"
+        },
+        {
+            id : "BUTTON_SOUND_SS",
+            src: "img/BUTTON_SOUND_SS.png"
         }
     ],
     sound: [
@@ -460,6 +490,10 @@ var manifest = {
         {
             id : "SOUND_PI2",
             src: "sound/PI2.mp3"
+        },
+        {
+            id : "TURN_SWITCH",
+            src: "sound/TURN_SWITCH.mp3"
         }
     ],
     api: [

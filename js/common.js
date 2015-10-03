@@ -226,6 +226,10 @@ function addAllEventListener(){
     //     window.location.href="https://twitter.com/intent/tweet?hashtags=しゃかりん！&text="+getTweetText()+"&url=http://games.sokontokoro-factory.net/shakarin/";
     // });
 
+    _imageObj.BUTTON_RANKING.addEventListener("mousedown",function(){
+        window.location.href = "http://games.sokontokoro-factory.net/ranking/?game_name=shakarin"
+    })
+
     /* サウンド用イベント */
     window.addEventListener("blur", function(){
         soundTurnOff();
@@ -235,6 +239,15 @@ function addAllEventListener(){
         soundTurnOn();
         createjs.Ticker.setPaused(false);
     });
-
+    _ssObj.BUTTON_SOUND_SS.addEventListener("mousedown", function(){
+        _soundObj.TURN_SWITCH.play("none",0,0,0,1,0);
+        if(_isSoundMute){
+            _ssObj.BUTTON_SOUND_SS.gotoAndPlay("on");
+            soundTurnOn();
+        }else{
+            _ssObj.BUTTON_SOUND_SS.gotoAndPlay("off");
+            soundTurnOff(); 
+        }
+    });
 }
 
