@@ -143,6 +143,14 @@ var properties = {
         SHAKE: {
             id: "SOUND_SHAKE",
             canMute: true
+        },
+        GAME_LOOP: {
+            id: "SOUND_GAME_LOOP",
+            canMute: true
+        },
+        GAME_END: {
+            id: "SOUND_GAME_END",
+            canMute: true
         }
     },
     text: {
@@ -196,6 +204,14 @@ var manifest = {
         {
             id : "SOUND_SHAKE",
             src: "sound/SHAKE.mp3"
+        },
+        {
+            id : "SOUND_GAME_LOOP",
+            src: "sound/GAME_LOOP.mp3"
+        },
+        {
+            id : "SOUND_GAME_END",
+            src: "sound/GAME_END.mp3"
         }
     ],
     api: [

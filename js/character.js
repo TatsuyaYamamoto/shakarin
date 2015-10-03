@@ -15,6 +15,10 @@ function Player(playCharacter){
 
 Player.prototype.shake = function(direction){
 
+    if(_SoundObj.GAME_LOOP.paused){
+        _SoundObj.GAME_LOOP.paused = false;
+    }
+
     _ShakeCount ++;
     _SoundObj.SHAKE.play("none",0,0,0,1,0);
     var i = _ShakeCount % 2 + 1;    // ex. L1 or L2

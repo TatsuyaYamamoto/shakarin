@@ -30,7 +30,7 @@ function gameInit(){
 		_TextObj.GAME_COUNT
 		])
 
-
+    _SoundObj.GAME_LOOP.play("any",0,0,-1,0.6,0);
 
 	//タイマーに関数セット
     // _TickListener = createjs.Ticker.addEventListener("tick", gameReady);
@@ -96,6 +96,7 @@ function processGame(){
 		_Player.changeDirection();
 		_nextCheckFrame = getNextCheckFrame();
 		checkButtonStatus();
+	    _SoundObj.GAME_LOOP.paused= true;
 	}
 	_GameStage.update();
 
@@ -104,7 +105,7 @@ function processGame(){
 function timerAnimation(){
 
     createjs.Tween.get(_ImageObj.RAMEN)
-        .to({x : _GameScrean.width * 0.9}, config.system.timeLength.x)
+        .to({x : _GameScrean.width * 0.9}, config.system.timeLength)
             .to({y : _GameScrean.height * 0.9}, config.system.timeLength.y)
                 .to({x : _GameScrean.width * 0.1}, config.system.timeLength.x)
                     .to({y : _GameScrean.height * 0.1}, config.system.timeLength.y)
@@ -115,7 +116,7 @@ function timerAnimation(){
 // 敵出現---------------------------------------
 function getNextCheckFrame(){
 
-    var i = Math.floor(Math.random() * 20) + 30;
+    var i = Math.floor(Math.random() * 40) + 30;
 	return _GameFrame + i;
 }
 
@@ -199,6 +200,9 @@ function finish(){
 	_Player.setDirection("N");
 	_Player.wait();
 	checkButtonStatus()
+
+    _SoundObj.GAME_LOOP.stop();
+	_SoundObj.GAME_END.play("late",0,0,0,0.6,0);
 
 	// createjs.Ticker.reset();
     createjs.Ticker.removeEventListener("tick", _TickListener);
