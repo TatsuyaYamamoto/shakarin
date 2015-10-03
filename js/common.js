@@ -125,11 +125,11 @@ function keyDownEvent(event){
     if(event.keyCode == 39 && _ImageObj.BUTTON_RIGHT.mouseEnabled){
         _Player.shake("R");
     }
-    if(event.keyCode == 38 && _ImageObj.BUTTON_UP.mouseEnabled){
-        _Player.shake("U");     
+    if(event.keyCode == 38 && _ImageObj.BUTTON_TOP.mouseEnabled){
+        _Player.shake("T");     
     }
-    if(event.keyCode == 40 && _ImageObj.BUTTON_DOWN.mouseEnabled){
-        _Player.shake("D");
+    if(event.keyCode == 40 && _ImageObj.BUTTON_BOTTOM.mouseEnabled){
+        _Player.shake("B");
     }
 }
 
@@ -143,12 +143,12 @@ function addAllEventListener(){
     _ImageObj.BUTTON_RIGHT.addEventListener("mousedown", function() {
     	_Player.shake("R");
     });
-    _ImageObj.BUTTON_UP.addEventListener("mousedown", function() {
-    	_Player.shake("U");
+    _ImageObj.BUTTON_TOP.addEventListener("mousedown", function() {
+    	_Player.shake("T");
     });
 
-    _ImageObj.BUTTON_DOWN.addEventListener("mousedown", function() {
-    	_Player.shake("D");
+    _ImageObj.BUTTON_BOTTOM.addEventListener("mousedown", function() {
+    	_Player.shake("B");
     });
 }
 

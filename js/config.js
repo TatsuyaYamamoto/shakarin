@@ -3,10 +3,7 @@
 var config = {
     system: {
         FPS: 30,
-        timeLength: {
-            x: 640 * 3,
-            y: 896 * 3
-        },
+        timeLength: 10000,
         gamescrean: {
             width: 640,
             height: 896
@@ -51,35 +48,35 @@ var properties = {
         BUTTON_LEFT: {
             id : "BUTTON_LR",
             ratioX: 0.1,
-            ratioY: 0.5,
+            ratioY: 0.4,
             scale: 1,
             alpha: 1
         },
         BUTTON_RIGHT: {
             id : "BUTTON_LR",
             ratioX: 0.9,
-            ratioY: 0.5,
+            ratioY: 0.4,
             scale: 1,
             alpha: 1
         },
-        BUTTON_UP: {
+        BUTTON_TOP: {
             id : "BUTTON_UD",
             ratioX: 0.5,
             ratioY: 0.1,
             scale: 1,
             alpha: 1
         },
-        BUTTON_DOWN: {
+        BUTTON_BOTTOM: {
             id : "BUTTON_UD",
             ratioX: 0.5,
-            ratioY: 0.9,
+            ratioY: 0.7,
             scale: 1,
             alpha: 1
         },
         RAMEN: {
             id : "RAMEN",
             ratioX: 0.1,
-            ratioY: 0.1,
+            ratioY: 0.9,
             scale: 0.3,
             alpha: 1
         }
@@ -88,7 +85,7 @@ var properties = {
         RIN: {
             id : "SS_RIN",
             ratioX: 0.5,
-            ratioY: 0.5,
+            ratioY: 0.4,
             scale: 1,
             alpha: 1,
             frames: {
@@ -117,22 +114,22 @@ var properties = {
                 L2: {
                     frames: [6]
                 },
-                U_wait: {
+                T_wait: {
                     frames: [7]
                 },
-                U1: {
+                T1: {
                     frames: [8]
                 },
-                U2: {
+                T2: {
                     frames: [9]
                 },
-                D_wait: {
+                B_wait: {
                     frames: [10]
                 },
-                D1: {
+                B1: {
                     frames: [11]
                 },
-                D2: {
+                B2: {
                     frames: [12]
                 }
             },
@@ -156,7 +153,7 @@ var properties = {
     text: {
         GAME_COUNT: {
             ratioX: 0.8,
-            ratioY: 0.1,
+            ratioY: 0.8,
             size: 0.05,
             family: "Courier",
             align: "center",

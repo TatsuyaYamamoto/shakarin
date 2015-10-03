@@ -51,10 +51,10 @@ Player.prototype.changeDirection = function(){
             this. direction = "R";
             break;
         case 2:
-            this. direction = "U";
+            this. direction = "T";
             break;
         case 3:
-            this. direction = "D";
+            this. direction = "B";
             break;
     }
     // directionに変更がなければwaitアニメなし

@@ -23,8 +23,8 @@ function gameInit(){
 		_ImageObj.BACKGROUND, 
 		_ImageObj.BUTTON_LEFT, 
 		_ImageObj.BUTTON_RIGHT, 
-		_ImageObj.BUTTON_UP, 
-		_ImageObj.BUTTON_DOWN, 
+		_ImageObj.BUTTON_TOP, 
+		_ImageObj.BUTTON_BOTTOM, 
 		_Player.img, 
 		_ImageObj.RAMEN, 
 		_TextObj.GAME_COUNT
@@ -106,17 +106,14 @@ function timerAnimation(){
 
     createjs.Tween.get(_ImageObj.RAMEN)
         .to({x : _GameScrean.width * 0.9}, config.system.timeLength)
-            .to({y : _GameScrean.height * 0.9}, config.system.timeLength.y)
-                .to({x : _GameScrean.width * 0.1}, config.system.timeLength.x)
-                    .to({y : _GameScrean.height * 0.1}, config.system.timeLength.y)
-                        .call(finish);
+			.call(finish);
 }
 
 
 // 敵出現---------------------------------------
 function getNextCheckFrame(){
 
-    var i = Math.floor(Math.random() * 40) + 30;
+    var i = Math.floor(Math.random() * 30) + 20;
 	return _GameFrame + i;
 }
 
@@ -136,11 +133,11 @@ function checkButtonStatus(){
 		case "R":
 			rightButtonEnable();
 			break;
-		case "U":
-			upButtonEnable();
+		case "T":
+			topButtonEnable();
 			break;
-		case "D":
-			downButtonEnable();
+		case "B":
+			bottomButtonEnable();
 			break;
     }
 }
@@ -155,13 +152,13 @@ function leftButtonEnable(){
 	_ImageObj.BUTTON_LEFT.mouseEnabled = true;
  	_ImageObj.BUTTON_LEFT.alpha=0.7;
 }
-function upButtonEnable(){
-	_ImageObj.BUTTON_UP.mouseEnabled = true;
-	_ImageObj.BUTTON_UP.alpha=0.7;
+function topButtonEnable(){
+	_ImageObj.BUTTON_TOP.mouseEnabled = true;
+	_ImageObj.BUTTON_TOP.alpha=0.7;
 }
-function downButtonEnable(){
-	_ImageObj.BUTTON_DOWN.mouseEnabled = true;
-	_ImageObj.BUTTON_DOWN.alpha=0.7;
+function bottomButtonEnable(){
+	_ImageObj.BUTTON_BOTTOM.mouseEnabled = true;
+	_ImageObj.BUTTON_BOTTOM.alpha=0.7;
 }
 
 // 無効化
@@ -173,23 +170,23 @@ function leftButtonDisable(){
 	_ImageObj.BUTTON_LEFT.mouseEnabled = false;
 	_ImageObj.BUTTON_LEFT.alpha=0.2;
 }
-function upButtonDisable(){
-	_ImageObj.BUTTON_UP.mouseEnabled = false;
-	_ImageObj.BUTTON_UP.alpha=0.2;
+function topButtonDisable(){
+	_ImageObj.BUTTON_TOP.mouseEnabled = false;
+	_ImageObj.BUTTON_TOP.alpha=0.2;
 }
 function downButtonDisable(){
-	_ImageObj.BUTTON_DOWN.mouseEnabled = false;
-	_ImageObj.BUTTON_DOWN.alpha=0.2;
+	_ImageObj.BUTTON_BOTTOM.mouseEnabled = false;
+	_ImageObj.BUTTON_BOTTOM.alpha=0.2;
 }
 function allButtonDisable(){
 	_ImageObj.BUTTON_RIGHT.mouseEnabled = false;
 	_ImageObj.BUTTON_LEFT.mouseEnabled = false;
-	_ImageObj.BUTTON_UP.mouseEnabled = false;
-	_ImageObj.BUTTON_DOWN.mouseEnabled = false;
+	_ImageObj.BUTTON_TOP.mouseEnabled = false;
+	_ImageObj.BUTTON_BOTTOM.mouseEnabled = false;
 	_ImageObj.BUTTON_RIGHT.alpha=0.2;
 	_ImageObj.BUTTON_LEFT.alpha=0.2;
-	_ImageObj.BUTTON_UP.alpha=0.2;
-	_ImageObj.BUTTON_DOWN.alpha=0.2;
+	_ImageObj.BUTTON_TOP.alpha=0.2;
+	_ImageObj.BUTTON_BOTTOM.alpha=0.2;
 }
 
 
