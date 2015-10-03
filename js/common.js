@@ -101,9 +101,9 @@ function setUserInfo(){
 
     $.when(dfd1, dfd2).done(function(data1,data2){
 
-        user.id = data1[0].user_id;
-        user.name = data1[0].user_name;
-        user.iconURL = data2[0].profile_image_url.replace("_normal", "_bigger");
+        _user.id = data1[0].user_id;
+        _user.name = data1[0].user_name;
+        _user.iconURL = data2[0].profile_image_url.replace("_normal", "_bigger");
 
         d.resolve();
     }).fail(function(){
@@ -195,15 +195,15 @@ function addAllEventListener(){
 
 
     /* ログイン */
-    // imageObj.BUTTON_TWITTER_LOGIN.addEventListener("mousedown", function(){
-    //     window.location.href = config.api.origin + config.api.path.login + "?game_name=honocar";
-    // });
+    _imageObj.BUTTON_TWITTER_LOGIN.addEventListener("mousedown", function(){
+        window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+    });
 
-    // imageObj.BUTTON_TWITTER_LOGOUT.addEventListener("mousedown", function(){
-    //     if(confirm("ログアウトします。ランキング登録はログイン中のみ有効です。")){
-    //         window.location.href = config.api.origin + config.api.path.logout + "?game_name=honocar";
-    //     }
-    // });
+    _imageObj.BUTTON_TWITTER_LOGOUT.addEventListener("mousedown", function(){
+        if(confirm("ログアウトします。ランキング登録はログイン中のみ有効です。")){
+            window.location.href = config.api.origin + config.api.path.logout + "?game_name=shakarin";
+        }
+    });
 
     /* リンク */
 

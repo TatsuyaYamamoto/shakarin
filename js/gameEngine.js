@@ -63,7 +63,7 @@ function gameReady(){
 				_player.img, 
 				_imageObj.RAMEN, 
 				_textObj.GAME_COUNT
-				])
+				]);
 
 
 		    // タイマーアニメーション開始

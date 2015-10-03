@@ -57,13 +57,17 @@ function menuState(){
         _gameStage.addChild(_imageObj.BUTTON_TWITTER_LOGIN);
     }
 
-    _gameStage.addChild(_imageObj.BUTTON_START);
-    _gameStage.addChild(_imageObj.BUTTON_HOW);
-    _gameStage.addChild(_imageObj.BUTTON_RANKING);
-    _gameStage.addChild(_imageObj.BUTTON_CREDIT);
-    _gameStage.addChild(_imageObj.BUTTON_TWITTER_TOP);
-    _gameStage.addChild(_ssObj.BUTTON_SOUND_SS);
-    _gameStage.addChild(_imageObj.MENU_LOGO);
+
+    addChildren([
+        _imageObj.BUTTON_START,
+        _imageObj.BUTTON_HOW,
+        _imageObj.BUTTON_RANKING,
+        _imageObj.BUTTON_CREDIT,
+        _imageObj.BUTTON_TWITTER_TOP,
+        _ssObj.BUTTON_SOUND_SS,
+        _imageObj.MENU_LOGO
+    ]);
+
 
     // ssObj.BUTTON_CHANGE_CHARA.gotoAndPlay(playCharacter);
     // gameStage.addChild(ssObj.BUTTON_CHANGE_CHARA);
@@ -90,15 +94,16 @@ function howToPlayState(){
 function creditState(){
 
     _gameStage.removeAllChildren();
-    _gameStage.addChild(_imageObj.BACKGROUND);
-    _gameStage.addChild(_imageObj.BUTTON_BACK_MENU_FROM_CREDIT);
-    _gameStage.addChild(_textObj.LINK_SOKONTOKORO);
-    _gameStage.addChild(_textObj.LINK_SANZASHI);
-    _gameStage.addChild(_textObj.LINK_LOVELIVE);
-    _gameStage.addChild(_textObj.LINK_SOUNDEFFECT);
-    _gameStage.addChild(_textObj.LINK_ONJIN);
 
-
+    addChildren([
+        _imageObj.BACKGROUND, 
+        _imageObj.BUTTON_BACK_MENU_FROM_CREDIT,
+        _textObj.LINK_SOKONTOKORO, 
+        _textObj.LINK_SANZASHI, 
+        _textObj.LINK_LOVELIVE, 
+        _textObj.LINK_SOUNDEFFECT, 
+        _textObj.LINK_ONJIN
+    ]);
 
     _gameStage.update();
 }
@@ -117,13 +122,14 @@ function gameOverState(){
     _gameStage.removeAllChildren();
 
 
-    _gameStage.addChild(_imageObj.BACKGROUND);
-    _gameStage.addChild(_player.img);
-    _gameStage.addChild(_imageObj.BUTTON_BACK_MENU_FROM_GAME);
-    _gameStage.addChild(_imageObj.BUTTON_RESTART);
-    _gameStage.addChild(_textObj.GAME_COUNT);
-    _gameStage.addChild(_imageObj.GAMEOVER);
-
+    addChildren([
+        _imageObj.BACKGROUND,
+        _player.img,
+        _imageObj.BUTTON_BACK_MENU_FROM_GAME,
+        _imageObj.BUTTON_RESTART,
+        _textObj.GAME_COUNT,
+        _imageObj.GAMEOVER
+    ]);
 
     switch(_playCharacter){
         case "rin":
