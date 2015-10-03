@@ -3,11 +3,11 @@ function gameInit(){
 
 	//honoka or erichiを作成
 	//初期値はplayCharacter=honoka
-	_Player = new Player(_PlayCharacter);
+	_player = new Player(_playCharacter);
 
     //フレーム数リセット
-	_GameFrame = 0;
-	_ShakeCount = 0;
+	_gameFrame = 0;
+	_shakeCount = 0;
 	_nextCheckFrame = config.system.firstCheckFrame;
 
 	//ボタン無効化
@@ -20,23 +20,23 @@ function gameInit(){
 
 	// 一時的
 	addChildren([
-		_ImageObj.BACKGROUND, 
-		_ImageObj.BUTTON_LEFT, 
-		_ImageObj.BUTTON_RIGHT, 
-		_ImageObj.BUTTON_TOP, 
-		_ImageObj.BUTTON_BOTTOM, 
-		_Player.img, 
-		_ImageObj.RAMEN, 
-		_TextObj.GAME_COUNT
+		_imageObj.BACKGROUND, 
+		_imageObj.BUTTON_LEFT, 
+		_imageObj.BUTTON_RIGHT, 
+		_imageObj.BUTTON_TOP, 
+		_imageObj.BUTTON_BOTTOM, 
+		_player.img, 
+		_imageObj.RAMEN, 
+		_textObj.GAME_COUNT
 		])
 
-    _SoundObj.GAME_LOOP.play("any",0,0,-1,0.6,0);
+    _soundObj.GAME_LOOP.play("any",0,0,-1,0.6,0);
 
 	//タイマーに関数セット
-    // _TickListener = createjs.Ticker.addEventListener("tick", gameReady);
+    // _tickListener = createjs.Ticker.addEventListener("tick", gameReady);
 	timerAnimation();
 
-	_TickListener = createjs.Ticker.addEventListener("tick", processGame);
+	_tickListener = createjs.Ticker.addEventListener("tick", processGame);
 }
 
 
@@ -88,24 +88,24 @@ function gameInit(){
 // ゲーム処理-----------------------------------------
 function processGame(){
 
-	_GameFrame ++;
+	_gameFrame ++;
 
-	_TextObj.GAME_COUNT.text = _ShakeCount + "しゃか！";
+	_textObj.GAME_COUNT.text = _shakeCount + "しゃか！";
 
-	if (_GameFrame === _nextCheckFrame){
-		_Player.changeDirection();
+	if (_gameFrame === _nextCheckFrame){
+		_player.changeDirection();
 		_nextCheckFrame = getNextCheckFrame();
 		checkButtonStatus();
-	    _SoundObj.GAME_LOOP.paused= true;
+	    _soundObj.GAME_LOOP.paused= true;
 	}
-	_GameStage.update();
+	_gameStage.update();
 
 }
 
 function timerAnimation(){
 
-    createjs.Tween.get(_ImageObj.RAMEN)
-        .to({x : _GameScrean.width * 0.9}, config.system.timeLength)
+    createjs.Tween.get(_imageObj.RAMEN)
+        .to({x : _gameScrean.width * 0.9}, config.system.timeLength)
 			.call(finish);
 }
 
@@ -114,7 +114,7 @@ function timerAnimation(){
 function getNextCheckFrame(){
 
     var i = Math.floor(Math.random() * 30) + 20;
-	return _GameFrame + i;
+	return _gameFrame + i;
 }
 
 
@@ -126,7 +126,7 @@ function checkButtonStatus(){
 
     allButtonDisable();
 
-    switch(_Player.getDirection()){
+    switch(_player.getDirection()){
     	case "L":
 			leftButtonEnable();
 			break;
@@ -145,64 +145,64 @@ function checkButtonStatus(){
 
 // 有効化
 function rightButtonEnable(){
-	_ImageObj.BUTTON_RIGHT.mouseEnabled = true;
-   	_ImageObj.BUTTON_RIGHT.alpha=0.7;
+	_imageObj.BUTTON_RIGHT.mouseEnabled = true;
+   	_imageObj.BUTTON_RIGHT.alpha=0.7;
 }
 function leftButtonEnable(){
-	_ImageObj.BUTTON_LEFT.mouseEnabled = true;
- 	_ImageObj.BUTTON_LEFT.alpha=0.7;
+	_imageObj.BUTTON_LEFT.mouseEnabled = true;
+ 	_imageObj.BUTTON_LEFT.alpha=0.7;
 }
 function topButtonEnable(){
-	_ImageObj.BUTTON_TOP.mouseEnabled = true;
-	_ImageObj.BUTTON_TOP.alpha=0.7;
+	_imageObj.BUTTON_TOP.mouseEnabled = true;
+	_imageObj.BUTTON_TOP.alpha=0.7;
 }
 function bottomButtonEnable(){
-	_ImageObj.BUTTON_BOTTOM.mouseEnabled = true;
-	_ImageObj.BUTTON_BOTTOM.alpha=0.7;
+	_imageObj.BUTTON_BOTTOM.mouseEnabled = true;
+	_imageObj.BUTTON_BOTTOM.alpha=0.7;
 }
 
 // 無効化
 function rightButtonDisable(){
-	_ImageObj.BUTTON_RIGHT.mouseEnabled = false;
+	_imageObj.BUTTON_RIGHT.mouseEnabled = false;
 	_ImageObj.BUTTON_RIGHT.alpha=0.2;
 }
 function leftButtonDisable(){
-	_ImageObj.BUTTON_LEFT.mouseEnabled = false;
-	_ImageObj.BUTTON_LEFT.alpha=0.2;
+	_imageObj.BUTTON_LEFT.mouseEnabled = false;
+	_imageObj.BUTTON_LEFT.alpha=0.2;
 }
 function topButtonDisable(){
-	_ImageObj.BUTTON_TOP.mouseEnabled = false;
-	_ImageObj.BUTTON_TOP.alpha=0.2;
+	_imageObj.BUTTON_TOP.mouseEnabled = false;
+	_imageObj.BUTTON_TOP.alpha=0.2;
 }
 function downButtonDisable(){
-	_ImageObj.BUTTON_BOTTOM.mouseEnabled = false;
-	_ImageObj.BUTTON_BOTTOM.alpha=0.2;
+	_imageObj.BUTTON_BOTTOM.mouseEnabled = false;
+	_imageObj.BUTTON_BOTTOM.alpha=0.2;
 }
 function allButtonDisable(){
-	_ImageObj.BUTTON_RIGHT.mouseEnabled = false;
-	_ImageObj.BUTTON_LEFT.mouseEnabled = false;
-	_ImageObj.BUTTON_TOP.mouseEnabled = false;
-	_ImageObj.BUTTON_BOTTOM.mouseEnabled = false;
-	_ImageObj.BUTTON_RIGHT.alpha=0.2;
-	_ImageObj.BUTTON_LEFT.alpha=0.2;
-	_ImageObj.BUTTON_TOP.alpha=0.2;
-	_ImageObj.BUTTON_BOTTOM.alpha=0.2;
+	_imageObj.BUTTON_RIGHT.mouseEnabled = false;
+	_imageObj.BUTTON_LEFT.mouseEnabled = false;
+	_imageObj.BUTTON_TOP.mouseEnabled = false;
+	_imageObj.BUTTON_BOTTOM.mouseEnabled = false;
+	_imageObj.BUTTON_RIGHT.alpha=0.2;
+	_imageObj.BUTTON_LEFT.alpha=0.2;
+	_imageObj.BUTTON_TOP.alpha=0.2;
+	_imageObj.BUTTON_BOTTOM.alpha=0.2;
 }
 
 
 // ゲーム終了------------------------------------------------------
 
 function finish(){
-	_gameScore = _ShakeCount;
-	_Player.setDirection("N");
-	_Player.wait();
+	_gameScore = _shakeCount;
+	_player.setDirection("N");
+	_player.wait();
 	checkButtonStatus()
 
-    _SoundObj.GAME_LOOP.stop();
-	_SoundObj.GAME_END.play("late",0,0,0,0.6,0);
+    _soundObj.GAME_LOOP.stop();
+	_soundObj.GAME_END.play("late",0,0,0,0.6,0);
 
 	// createjs.Ticker.reset();
-    createjs.Ticker.removeEventListener("tick", _TickListener);
+    createjs.Ticker.removeEventListener("tick", _tickListener);
 
 
 	//キーボード用keycodeevent削除

@@ -3,38 +3,38 @@ window.onload = function(){
 
 	// ログインチェック
 	// 完了後にコンテンツオブジェクトのセットアップを開始する
-	_DeferredCheckLogin = $.Deferred();
+	_deferredCheckLogin = $.Deferred();
 	setUserInfo().done(function(){
-		_IsLogin = true;
-		_DeferredCheckLogin.resolve();
+		_isLogin = true;
+		_deferredCheckLogin.resolve();
 	}).fail(function(){
-		_IsLogin = false;
-		_DeferredCheckLogin.reject();
+		_isLogin = false;
+		_deferredCheckLogin.reject();
 	});
-	_DeferredCheckLogin.promise();
+	_deferredCheckLogin.promise();
 
 
 	//ゲーム画面の初期
-	_GameStage = new createjs.Stage("gameScrean");
-	_GameScrean = document.getElementById("gameScrean");
+	_gameStage = new createjs.Stage("gameScrean");
+	_gameScrean = document.getElementById("gameScrean");
 
 	//拡大縮小率の計算
 	initGameScreenScale();
 
 	var loading = new createjs.Text();
-    setTextProperties(loading, _GameScrean.width*0.5, _GameScrean.height*0.5, _GameScrean.width*0.04, "Courier", "center", _GameScrean.width*0.04);
+    setTextProperties(loading, _gameScrean.width*0.5, _gameScrean.height*0.5, _gameScrean.width*0.04, "Courier", "center", _gameScrean.width*0.04);
     loading.text = "loading..."
-    _GameStage.addChild(loading);
-    _GameStage.update();
+    _gameStage.addChild(loading);
+    _gameStage.update();
 
 	//canvas要素内でのスマホでのスライドスクロール禁止
-	$(_GameScrean).on('touchmove.noScroll', function(e) {
+	$(_gameScrean).on('touchmove.noScroll', function(e) {
 		e.preventDefault();
 	});
 
 	//canvasステージ内でのタッチイベントの有効化
 	if (createjs.Touch.isSupported()) {
-		createjs.Touch.enable(_GameStage);
+		createjs.Touch.enable(_gameStage);
 	}
 
 
@@ -50,13 +50,13 @@ window.onload = function(){
 	var ua = navigator.userAgent;
 
 	if(/iPhone/.test(ua)) {
-	    _GameStage.removeAllChildren();
+	    _gameStage.removeAllChildren();
 	    var text = new createjs.Text();
-	    setTextProperties(text, _GameScrean.width*0.5, _GameScrean.height*0.5, _GameScrean.width*0.05, "Courier", "center", _GameScrean.width*0.04);
+	    setTextProperties(text, _GameScrean.width*0.5, _gameScrean.height*0.5, _gameScrean.width*0.05, "Courier", "center", _gameScrean.width*0.04);
 	    text.text = "-Please tap on the display!-"
 
-	    _GameStage.addChild(text);
-	    _GameStage.update();
+	    _gameStage.addChild(text);
+	    _gameStage.update();
 
 	    window.addEventListener("touchstart", start);
 

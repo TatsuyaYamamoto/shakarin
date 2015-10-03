@@ -2,12 +2,12 @@
 function loadState(){
 
 
-    _TextObj.TEXT_LOADING_STATUS = new createjs.Text("", _GameScrean.width*0.1+"20px Impact", "");
-    _TextObj.TEXT_LOADING_STATUS.x = _GameScrean.width/2;
-    _TextObj.TEXT_LOADING_STATUS.y = _GameScrean.height/2;
-    _TextObj.TEXT_LOADING_STATUS.textAlign = "center";
+    _textObj.TEXT_LOADING_STATUS = new createjs.Text("", _gameScrean.width*0.1+"20px Impact", "");
+    _textObj.TEXT_LOADING_STATUS.x = _gameScrean.width/2;
+    _textObj.TEXT_LOADING_STATUS.y = _gameScrean.height/2;
+    _textObj.TEXT_LOADING_STATUS.textAlign = "center";
 
-    _GameStage.addChild(_TextObj.TEXT_LOADING_STATUS);
+    _gameStage.addChild(_textObj.TEXT_LOADING_STATUS);
     loadAnimation();
 
 
@@ -127,7 +127,7 @@ function rankingState(){
 // ゲーム画面------------------------------------------
 function gameState(){
 
-    _GameStage.removeAllChildren();
+    _gameStage.removeAllChildren();
     gameInit();
 
 }

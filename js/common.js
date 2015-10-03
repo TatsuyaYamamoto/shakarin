@@ -1,33 +1,33 @@
 // グローバル変数----------------------------------------
-var _GameStage;
-var _GameScrean;
-var _ScreenScale;
+var _gameStage;
+var _gameScrean;
+var _screenScale;
 
-var _GameFrame;
+var _gameFrame;
 var _nextCheckFrame;
 var _gameScore;
 
-var _TickListener;
+var _tickListener;
 
-var _Queue;
-var _IsSoundMute = false;
+var _queue;
+var _isSoundMute = false;
 
-var _PlayCharacter = "rin";
-var _Player;
-var _ShakeCount;
+var _playCharacter = "rin";
+var _player;
+var _shakeCount;
 
-var _IsLogin = false;
-var _DeferredCheckLogin;
+var _isLogin = false;
+var _deferredCheckLogin;
 
 
 // エレメントオブジェクト-----------------------------
 // 画像、スプライトシート、音声、テキスト、ユーザー情報
 
-var _ImageObj = {};
-var _SSObj = {};
-var _SoundObj = {};
-var _TextObj = {};
-var _User = {
+var _imageObj = {};
+var _ssObj = {};
+var _soundObj = {};
+var _textObj = {};
+var _user = {
     id: "",
     name: "",
     iconURL: ""
@@ -36,11 +36,7 @@ var _User = {
 
 
 
-//初期化----------------------------------------
-
-var TWITTER_ICON_URL;
-var screen_name;
-//テキスト
+// ----------------------------------------
 
 var TEXT_HOW_TO;
 var TEXT_GAME_COUNT;
@@ -64,19 +60,19 @@ var text_game_count_R = "台"
 function initGameScreenScale(){
 
 	if(window.innerHeight/window.innerWidth < config.system.gamescrean.height　/　config.system.gamescrean.width){
-		_ScreenScale = window.innerHeight/config.system.gamescrean.height;
+		_screenScale = window.innerHeight/config.system.gamescrean.height;
 	}else{
-		_ScreenScale = window.innerWidth/config.system.gamescrean.width;
+		_screenScale = window.innerWidth/config.system.gamescrean.width;
 	}
 
-	_GameScrean.height = config.system.gamescrean.height * _ScreenScale;
-	_GameScrean.width = config.system.gamescrean.width * _ScreenScale;
+	_gameScrean.height = config.system.gamescrean.height * _screenScale;
+	_gameScrean.width = config.system.gamescrean.width * _screenScale;
 
 }
 
 function addChildren(array){
     for(var key in array){
-        _GameStage.addChild(array[key]);
+        _gameStage.addChild(array[key]);
     }
 }
 
@@ -119,36 +115,36 @@ function setUserInfo(){
 // キーボードキー
 function keyDownEvent(event){
 
-    if(event.which == 37 && _ImageObj.BUTTON_LEFT.mouseEnabled){
-        _Player.shake("L");
+    if(event.which == 37 && _imageObj.BUTTON_LEFT.mouseEnabled){
+        _player.shake("L");
     }
-    if(event.keyCode == 39 && _ImageObj.BUTTON_RIGHT.mouseEnabled){
-        _Player.shake("R");
+    if(event.keyCode == 39 && _imageObj.BUTTON_RIGHT.mouseEnabled){
+        _player.shake("R");
     }
-    if(event.keyCode == 38 && _ImageObj.BUTTON_TOP.mouseEnabled){
-        _Player.shake("T");     
+    if(event.keyCode == 38 && _imageObj.BUTTON_TOP.mouseEnabled){
+        _player.shake("T");     
     }
-    if(event.keyCode == 40 && _ImageObj.BUTTON_BOTTOM.mouseEnabled){
-        _Player.shake("B");
+    if(event.keyCode == 40 && _imageObj.BUTTON_BOTTOM.mouseEnabled){
+        _player.shake("B");
     }
 }
 
 //イベントリスナー登録--------------------------------
 
 function addAllEventListener(){
-    _ImageObj.BUTTON_LEFT.addEventListener("mousedown", function() {
-    	_Player.shake("L");
+    _imageObj.BUTTON_LEFT.addEventListener("mousedown", function() {
+    	_player.shake("L");
     });
 
-    _ImageObj.BUTTON_RIGHT.addEventListener("mousedown", function() {
-    	_Player.shake("R");
+    _imageObj.BUTTON_RIGHT.addEventListener("mousedown", function() {
+    	_player.shake("R");
     });
-    _ImageObj.BUTTON_TOP.addEventListener("mousedown", function() {
-    	_Player.shake("T");
+    _imageObj.BUTTON_TOP.addEventListener("mousedown", function() {
+    	_player.shake("T");
     });
 
-    _ImageObj.BUTTON_BOTTOM.addEventListener("mousedown", function() {
-    	_Player.shake("B");
+    _imageObj.BUTTON_BOTTOM.addEventListener("mousedown", function() {
+    	_player.shake("B");
     });
 }
 
