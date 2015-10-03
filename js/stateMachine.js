@@ -127,7 +127,7 @@ function gameOverState(){
         _player.img,
         _imageObj.BUTTON_BACK_MENU_FROM_GAME,
         _imageObj.BUTTON_RESTART,
-        _textObj.GAME_COUNT,
+        _textObj.SCORE_COUNT,
         _imageObj.GAMEOVER
     ]);
 

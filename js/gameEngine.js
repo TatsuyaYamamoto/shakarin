@@ -62,7 +62,7 @@ function gameReady(){
 				_imageObj.BUTTON_BOTTOM, 
 				_player.img, 
 				_imageObj.RAMEN, 
-				_textObj.GAME_COUNT
+				_textObj.SCORE_COUNT
 				]);
 
 
