@@ -52,20 +52,6 @@ var properties = {
             scale: 1,
             alpha: 1
         },
-        BUTTON_LEFT: {
-            id : "BUTTON_LR",
-            ratioX: 0.1,
-            ratioY: 0.4,
-            scale: 1,
-            alpha: 1
-        },
-        BUTTON_RIGHT: {
-            id : "BUTTON_LR",
-            ratioX: 0.9,
-            ratioY: 0.4,
-            scale: 1,
-            alpha: 1
-        },
         MENU_LOGO: {
             id : "MENU_LOGO",
             ratioX: 0.5,
@@ -73,24 +59,38 @@ var properties = {
             scale: 1,
             alpha: 1
         },
+        BUTTON_LEFT: {
+            id : "BUTTON_LR",
+            ratioX: 0.1,
+            ratioY: 0.6,
+            scale: 1,
+            alpha: 1
+        },
+        BUTTON_RIGHT: {
+            id : "BUTTON_LR",
+            ratioX: 0.9,
+            ratioY: 0.6,
+            scale: 1,
+            alpha: 1
+        },
         BUTTON_TOP: {
             id : "BUTTON_UD",
             ratioX: 0.5,
-            ratioY: 0.1,
+            ratioY: 0.3,
             scale: 1,
             alpha: 1
         },
         BUTTON_BOTTOM: {
             id : "BUTTON_UD",
             ratioX: 0.5,
-            ratioY: 0.7,
+            ratioY: 0.9,
             scale: 1,
             alpha: 1
         },
         RAMEN: {
             id : "RAMEN",
             ratioX: 0.1,
-            ratioY: 0.9,
+            ratioY: 0.1,
             scale: 0.3,
             alpha: 1
         },
@@ -183,12 +183,12 @@ var properties = {
         RIN: {
             id : "SS_RIN",
             ratioX: 0.5,
-            ratioY: 0.4,
+            ratioY: 0.6,
             scale: 1,
             alpha: 1,
             frames: {
-                width:200,
-                height:200
+                width: 378,
+                height: 378
             },
             animations: {
                 N_wait: {
@@ -307,7 +307,7 @@ var properties = {
         },
         SCORE_COUNT: {
             ratioX: 0.8,
-            ratioY: 0.8,
+            ratioY: 0.2,
             size: 0.05,
             family: "Courier",
             align: "center",

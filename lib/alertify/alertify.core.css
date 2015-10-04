@@ -33,9 +33,10 @@
 	}
 .alertify {
 	position: fixed; z-index: 99999;
-	top: 50px; left: 50%;
-	width: 550px;
-	margin-left: -275px;
+	top: 30%;
+	left: 25%;
+	width: 50%;
+	/*margin-left: -275px;*/
 	opacity: 1;
 }
 	.alertify-hidden {
@@ -55,9 +56,9 @@
 .alertify-logs {
 	position: fixed;
 	z-index: 5000;
-	bottom: 10px;
-	right: 10px;
-	width: 300px;
+	bottom: 10%;
+	right: 0px;
+	width: 50%;
 }
 .alertify-logs-hidden {
 	display: none;
@@ -96,6 +97,7 @@
 		}
 		.alertify-inner {
 			text-align: center;
+			font-size: 1rem;/*html要素 font-size: 100%に対する文字サイズ */
 		}
 		.alertify-text {
 			margin-bottom: 15px;
@@ -122,16 +124,26 @@
 				margin-left: 5px;
 			}
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-device-width : 480px) {
+
 	.alertify,
 	.alertify-logs {
-		width: 90%;
+		width: 85%;
 		-webkit-box-sizing: border-box;
 		   -moz-box-sizing: border-box;
 		        box-sizing: border-box;
 	}
+	.alertify-log-show {
+		right: 0;
+		opacity: 1;
+		font-size: 3rem;
+	}
 	.alertify {
 		left: 5%;
 		margin: 0;
+	}
+	.alertify-inner {
+		text-align: center;
+		font-size: 4rem;/*html要素 font-size: 100%に対する文字サイズ */
 	}
 }
