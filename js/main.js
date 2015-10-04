@@ -5,6 +5,8 @@ window.onload = function(){
 	// 完了後にコンテンツオブジェクトのセットアップを開始する
 	_deferredCheckLogin = $.Deferred();
 	setUserInfo().done(function(){
+		// ログイン成功通知
+		alertify.log("ランキングシステム ログイン中！", "success", 3000);
 		_isLogin = true;
 		_deferredCheckLogin.resolve();
 	}).fail(function(){

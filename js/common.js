@@ -144,11 +144,15 @@ function registration(){
             point: _gameScore
         })
     }).done(function(data, status, xhr) {
-        drowRegistrationInfo();
+        alertify.log("ランキングシステム　通信完了！", "success", 3000);
+        // drowRegistrationInfo();
     }).fail(function(){
-        if(confirm("ログインセッションが無効になっています。再ログインします。")){
-            window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
-        }
+
+        alertify.confirm("ログインセッションが無効になっています。再ログインします。", function(result){
+            if(result){
+                window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+            }
+        })
     });
 }
 
@@ -254,13 +258,19 @@ function addAllEventListener(){
 
     /* ログイン */
     _imageObj.BUTTON_TWITTER_LOGIN.addEventListener("mousedown", function(){
-        window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+        alertify.confirm("ランキングシステムにログインします！", function(result){
+            if(result){
+                window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+            }
+        })
     });
 
     _imageObj.BUTTON_TWITTER_LOGOUT.addEventListener("mousedown", function(){
-        if(confirm("ログアウトします。ランキング登録はログイン中のみ有効です。")){
-            window.location.href = config.api.origin + config.api.path.logout + "?game_name=shakarin";
-        }
+        alertify.confirm("ログアウトします。ランキング登録はログイン中のみ有効です。", function(result){
+            if(result){
+                window.location.href = config.api.origin + config.api.path.logout + "?game_name=shakarin";
+            }
+        })
     });
 
     /* リンク */
