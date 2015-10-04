@@ -63,5 +63,3 @@ Player.prototype.changeDirection = function(){
         _player.wait();
     }
 }
-
-

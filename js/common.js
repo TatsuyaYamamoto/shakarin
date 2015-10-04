@@ -38,22 +38,8 @@ var _user = {
 
 // ----------------------------------------
 
-var TEXT_HOW_TO;
-var TEXT_GAME_COUNT;
-var TEXT_START;
-
-var TEXT_RANKING;
-
-var TEXT_LINK_LOVELIVE;
-var TEXT_LINK_ME;
-var TEXT_LINK_SAN;
-var TEXT_LINK_1;
-var TEXT_LINK_2;
-
 var text_how_to = "車道ど真ん中の穂乃果ちゃんを車が容赦なく襲う！\r \rなかなか始まらないススメ→トゥモロウを尻目に\r穂乃果ちゃんを助けてあげなくちゃ！\r \r \r \r \r \r \r \r \r \r \r \r \r \r \rLEFT, RIGHTボタン(キーボードの←→でも可！)\rで、かわせ！ホノカチャン！\r \r「私、やっぱりやる！やるったらやる！」"
 var text_how_to_E = "車道ど真ん中の生徒会長を車が容赦なく襲う！\r \rなかなか始まらないススメ→トゥモロウを尻目に\rエリチカを助けてあげなくちゃ！\r \r \r \r \r \r \r \r \r \r \r \r \r \r \rLEFT, RIGHTボタン(キーボードの←→でも可！)\rで、かしこく！かわせ！エリーチカ！！(KKE)\r \r「生徒会の許可ぁ？認められないチカ！」"
-var text_game_count_L = "よけたー : "
-var text_game_count_R = "台"
 
 
 //ゲームスクリーンサイズ初期化用-----------------------
@@ -217,6 +203,8 @@ function addAllEventListener(){
     });
 
     /* 画面遷移用 */
+
+    // メニュー --> ゲーム開始
     _imageObj.BUTTON_START.addEventListener("mousedown", function() {
         createjs.Ticker.removeEventListener("tick", _tickListener);
         _soundObj.ZENKAI.stop();
@@ -224,31 +212,43 @@ function addAllEventListener(){
         gameState();
     });
 
+    // メニュー --> HOW TO PLAY
     _imageObj.BUTTON_HOW.addEventListener("mousedown", function() {
         createjs.Ticker.removeEventListener("tick", _tickListener);
         _soundObj.OK.play("none",0,0,0,1,0);
-        howState();
+        howToPlayState();
     });
 
+    // メニュー --> クレジット
     _imageObj.BUTTON_CREDIT.addEventListener("mousedown",function(){
         createjs.Ticker.removeEventListener("tick", _tickListener);
         _soundObj.OK.play("none",0,0,0,1,0);
         creditState();      
     })
 
-    // _imageObj.BUTTON_BACK_MENU_FROM_HOW
+    // HOW --> メニュー
+    _imageObj.BUTTON_BACK_MENU_FROM_HOW.addEventListener("mousedown",function(){
+        createjs.Ticker.removeEventListener("tick", _tickListener);
+        _soundObj.BACK.play("none",0,0,0,1,0);
+        //キーボード用keycodeevent削除
+        window.removeEventListener("keydown", keyDownEvent);
+        menuState();    
+    })
 
+    // クレジッド --> メニュー
     _imageObj.BUTTON_BACK_MENU_FROM_CREDIT.addEventListener( 'mousedown', function() {
         _soundObj.BACK.play("none",0,0,0,1,0);
         menuState();
     });
 
+    // ゲームオーバー --> メニュー
     _imageObj.BUTTON_BACK_MENU_FROM_GAME.addEventListener( 'mousedown', function() {
         createjs.Ticker.removeEventListener("tick", _tickListener);
         _soundObj.BACK.play("none",0,0,0,1,0);
         menuState();
     });
 
+    // ゲームリスタート
     _imageObj.BUTTON_RESTART.addEventListener( 'mousedown', function() {
         createjs.Ticker.removeEventListener("tick", _tickListener);
         _soundObj.BACK.play("none",0,0,0,1,0);

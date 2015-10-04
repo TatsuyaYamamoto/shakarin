@@ -131,7 +131,7 @@ var properties = {
         },
         BUTTON_BACK_MENU_FROM_HOW: {
             id : "BUTTON_BACK_MENU",
-            ratioX: 0.5,
+            ratioX: 0.2,
             ratioY: 0.9,
             scale: 1,
             alpha: 1
@@ -303,7 +303,15 @@ var properties = {
             align: "center",
             lineHeight: 0.04,
             text : "-Please tap on the display!-"
-
+        },
+        HOW_TO_PLAY: {
+            ratioX: 0.5,
+            ratioY: 0.05,
+            size: 0.04,
+            family: "Courier",
+            align: "center",
+            lineHeight: 0.05,
+            text : "マラカスの練習中のりんちゃん！\r上下左右のボタンを向いているときにタップして\rしゃかしゃかさせよう！\r(キーボードの↑↓←→でもOK!)"
         },
         SCORE_COUNT: {
             ratioX: 0.8,
@@ -316,7 +324,7 @@ var properties = {
         },
         GAMESTART_COUNT: {
             ratioX: 0.5,
-            ratioY: 0.7,
+            ratioY: 0.3,
             size: 0.08,
             family: "Impact",
             align: "center",

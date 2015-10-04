@@ -82,14 +82,7 @@ function menuState(){
 
 
 }
-//操作説明画面------------------------------------------
-function howToPlayState(){  
 
-    gameStage.removeAllChildren();
-
-    howToPlayInit();
-
-}
 //クレジット画面------------------------------------------
 function creditState(){
 
@@ -108,6 +101,14 @@ function creditState(){
     _gameStage.update();
 }
 
+//操作説明画面------------------------------------------
+function howToPlayState(){  
+
+    _gameStage.removeAllChildren();
+
+    howToPlayInit();
+
+}
 // ゲーム画面------------------------------------------
 function gameState(){
 
