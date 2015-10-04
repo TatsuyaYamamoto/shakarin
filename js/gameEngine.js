@@ -72,7 +72,7 @@ function gameReady(){
 			_tickListener = createjs.Ticker.addEventListener("tick", processGame);
 			//キーボード用keycodeevent登録
 			window.addEventListener("keydown", keyDownEvent);
-			_soundObj.GAME_LOOP.play("any",0,0,-1,0.6,0);
+			_soundObj.GAME_LOOP.play("any",0,0,-1,1,0);
 			break;
 	}
 }

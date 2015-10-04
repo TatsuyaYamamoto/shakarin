@@ -3,7 +3,7 @@
 var config = {
     system: {
         FPS: 30,
-        timeLength: 2000,
+        timeLength: 20000,
         gamescrean: {
             width: 640,
             height: 896
