@@ -195,10 +195,6 @@ function addAllEventListener(){
     });
 
     _imageObj.BUTTON_BOTTOM.addEventListener("mousedown", function() {
-    	_player.shake("B");
-    });
-
-    _imageObj.BUTTON_BOTTOM.addEventListener("mousedown", function() {
         _player.shake("B");
     });
 
