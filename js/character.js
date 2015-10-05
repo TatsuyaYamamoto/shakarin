@@ -16,9 +16,7 @@ function Player(playCharacter){
 
 Player.prototype.shake = function(direction){
 
-    if(_soundObj.GAME_LOOP.paused){
-        _soundObj.GAME_LOOP.paused = false;
-    }
+    _soundObj.GAME_LOOP.volume = 1;
 
     _shakeCount ++;
     _soundObj.SHAKE.play("none",0,0,0,1,0);

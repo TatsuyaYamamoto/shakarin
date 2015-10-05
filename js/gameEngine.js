@@ -72,7 +72,9 @@ function gameReady(){
 			_tickListener = createjs.Ticker.addEventListener("tick", processGame);
 			//キーボード用keycodeevent登録
 			window.addEventListener("keydown", keyDownEvent);
+
 			_soundObj.GAME_LOOP.play("any",0,0,-1,1,0);
+
 			break;
 	}
 }
@@ -95,7 +97,7 @@ function processGame(){
 		_player.changeDirection();
 		_nextCheckFrame = getNextCheckFrame();
 		checkButtonStatus();
-	    _soundObj.GAME_LOOP.paused= true;
+	    _soundObj.GAME_LOOP.volume = 0.1;
 	}
 	_gameStage.update();
 
@@ -110,6 +112,7 @@ function timerAnimation(){
         .to({x : _gameScrean.width * 0.9}, config.system.timeLength)
 			.call(finish);
 }
+
 
 
 // 敵出現---------------------------------------

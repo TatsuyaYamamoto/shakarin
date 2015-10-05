@@ -254,17 +254,25 @@ function addAllEventListener(){
 
     /* ログイン */
     _imageObj.BUTTON_TWITTER_LOGIN.addEventListener("mousedown", function(){
+        _soundObj.OK.play("none",0,0,0,1,0);
         alertify.confirm("ランキングシステムにログインします！", function(result){
             if(result){
+                _soundObj.OK.play("none",0,0,0,1,0);
                 window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+            }else{
+                _soundObj.BACK.play("none",0,0,0,1,0);
             }
         })
     });
 
     _imageObj.BUTTON_TWITTER_LOGOUT.addEventListener("mousedown", function(){
+        _soundObj.OK.play("none",0,0,0,1,0);
         alertify.confirm("ログアウトします。ランキング登録はログイン中のみ有効です。", function(result){
             if(result){
+                _soundObj.OK.play("none",0,0,0,1,0);
                 window.location.href = config.api.origin + config.api.path.logout + "?game_name=shakarin";
+            }else{
+                _soundObj.BACK.play("none",0,0,0,1,0);
             }
         })
     });
