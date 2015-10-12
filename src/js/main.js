@@ -1,5 +1,6 @@
 window.onload = function(){
 
+
 	// ログインチェック
 	// 完了後にコンテンツオブジェクトのセットアップを開始する
 	_deferredCheckLogin = $.Deferred();
@@ -66,9 +67,6 @@ window.onload = function(){
 		// ログイン確認後ロード画面へ遷移
 		loadState();
 	}
-
-
-
 }
 
 

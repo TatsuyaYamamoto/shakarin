@@ -97,15 +97,14 @@ function processGame(){
 		_player.changeDirection();
 		_nextCheckFrame = getNextCheckFrame();
 		checkButtonStatus();
-	    _soundObj.GAME_LOOP.volume = 0.1;
 	}
 	_gameStage.update();
 
 }
 
-function timerAnimation(){
+// タイマーアニメーション---------------------------------
 
-	// 初期化
+function timerAnimation(){
 	_imageObj.RAMEN.x = _gameScrean.width * 0.1
 
     createjs.Tween.get(_imageObj.RAMEN)

@@ -10,7 +10,6 @@ function loadState(){
     _gameStage.addChild(_textObj.TEXT_LOADING_STATUS);
     loadAnimation();
 
-
 }
 
 // TOP画面------------------------------------------

@@ -16,8 +16,6 @@ function Player(playCharacter){
 
 Player.prototype.shake = function(direction){
 
-    _soundObj.GAME_LOOP.volume = 1;
-
     _shakeCount ++;
     _soundObj.SHAKE.play("none",0,0,0,1,0);
     var i = _shakeCount % 2 + 1;    // ex. L1 or L2

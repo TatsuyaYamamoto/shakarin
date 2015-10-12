@@ -1,6 +1,7 @@
 function loadAnimation(){
     
 
+
     var q = new createjs.LoadQueue();
     q.setMaxConnections(6);
 
@@ -10,10 +11,11 @@ function loadAnimation(){
             src: "img/LOAD_KOTORI.png"
         }
     ]);
-
     q.addEventListener("complete", function(){
+
         var bitmap = new createjs.Bitmap(q.getResult("LOAD_KOTORI"));
         bitmap.scaleY = bitmap.scaleX = _screenScale;
+
 
         bitmap.x = _gameScrean.width*0.5;
         bitmap.y = _gameScrean.height*0.5;
@@ -29,15 +31,16 @@ function loadAnimation(){
         _tickListener = createjs.Ticker.addEventListener("tick", function(){
             _gameStage.update();
         });
-
         loadContent();
     });
+
+
 
 }
 
 function loadContent(){
 
-    _queue = new createjs.LoadQueue(false)
+    _queue = new createjs.LoadQueue()
     _queue.installPlugin(createjs.Sound);
     _queue.setMaxConnections(6);
     _queue.addEventListener("complete", handleComplete);
@@ -52,6 +55,8 @@ function loadContent(){
 // ロードイベント -----------------------------------
 
 function handleComplete() {
+
+
 
     _deferredCheckLogin.always(function(){
         setImageContent();
