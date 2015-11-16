@@ -145,8 +145,8 @@ var properties = {
         },
         BUTTON_TWITTER_GAMEOVER_RIN: {
             id : "BUTTON_TWITTER_GAMEOVER_RIN",
-            ratioX: 0.25,
-            ratioY: 0.25,
+            ratioX: 0.4,
+            ratioY: 0.15,
             scale: 1,
             alpha: 1
         },

@@ -38,7 +38,8 @@ function howToPlayInit(){
 
 //ゲーム処理-----------------------------------------
 function processHowToPlay(){
-	if(_gameFrame%50 === 0){
+
+	if(_gameFrame % 20 === 0){
         _player.changeDirection();
         _player.wait();
         checkButtonStatus();
