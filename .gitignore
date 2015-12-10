@@ -1,4 +1,6 @@
 .DS_Store
 dist/
+package/
+bower_components/
 node_modules/
 config.secret.json
