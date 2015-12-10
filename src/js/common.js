@@ -34,25 +34,7 @@ var _user = {
 }
 
 
-//ゲームスクリーンサイズ初期化用-----------------------
-function initGameScreenScale(){
 
-	if(window.innerHeight/window.innerWidth < config.system.gamescrean.height　/　config.system.gamescrean.width){
-		_screenScale = window.innerHeight/config.system.gamescrean.height;
-	}else{
-		_screenScale = window.innerWidth/config.system.gamescrean.width;
-	}
-
-	_gameScrean.height = config.system.gamescrean.height * _screenScale;
-	_gameScrean.width = config.system.gamescrean.width * _screenScale;
-
-}
-
-function addChildren(array){
-    for(var key in array){
-        _gameStage.addChild(array[key]);
-    }
-}
 
 
 // アイコン画像URL取得-------------
@@ -172,7 +154,6 @@ function drowRegistrationInfo(){
 //イベントリスナー登録--------------------------------
 
 function addAllEventListener(){
-
 
     /* ゲーム操作用 */
     _imageObj.BUTTON_LEFT.addEventListener("mousedown", function() {
