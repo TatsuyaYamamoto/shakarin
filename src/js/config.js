@@ -15,14 +15,10 @@ var config = {
         firstCheckFrame: 10
     },
     api:{
-        origin: "http://ec2-54-65-78-59.ap-northeast-1.compute.amazonaws.com:8080", 
-        path: {
-            login: "/api/twitter/oauth/login",
-            logout: "/api/twitter/oauth/logout",
-            check: "/api/twitter/users/me",
-            registration_post: "/api/game/scores/honocar",
-            scores_get: "/api/game/scores/honocar"
-        }
+        login: "http://api.sokontokoro-factory.net/v1/auth/twitter/login",
+        logout: "http://api.sokontokoro-factory.net/v1/auth/twitter/logout/",
+        score: "http://api.sokontokoro-factory.net/v1/game/scores/shakarin/me/",
+        user: "http://api.sokontokoro-factory.net/v1/game/users/me/"
     },
     link: {
         t28_twitter: "https://twitter.com/t28_tatsuya",
@@ -38,6 +34,13 @@ var config = {
 
 var properties = {
     image: {
+        TITLE_LOGO: {
+            id : "TITLE_LOGO",
+            ratioX: 0.5,
+            ratioY: 0.5,
+            scale: 1,
+            alpha: 1
+        },
         BACKGROUND: {
             id : "BACKGROUND",
             ratioX: 0.5,
@@ -75,7 +78,7 @@ var properties = {
         },
         BUTTON_TOP: {
             id : "BUTTON_UD",
-            ratioX: 0.5,
+            ratioX: 0.48,
             ratioY: 0.3,
             scale: 1,
             alpha: 1
@@ -83,15 +86,15 @@ var properties = {
         BUTTON_BOTTOM: {
             id : "BUTTON_UD",
             ratioX: 0.5,
-            ratioY: 0.9,
+            ratioY: 0.92,
             scale: 1,
             alpha: 1
         },
         RAMEN: {
             id : "RAMEN",
             ratioX: 0.1,
-            ratioY: 0.1,
-            scale: 0.3,
+            ratioY: 0.12,
+            scale: 1,
             alpha: 1
         },
         BUTTON_START: {
@@ -131,7 +134,7 @@ var properties = {
         },
         BUTTON_BACK_MENU_FROM_HOW: {
             id : "BUTTON_BACK_MENU",
-            ratioX: 0.2,
+            ratioX: 0.15,
             ratioY: 0.9,
             scale: 1,
             alpha: 1
@@ -145,7 +148,7 @@ var properties = {
         },
         BUTTON_TWITTER_GAMEOVER_RIN: {
             id : "BUTTON_TWITTER_GAMEOVER_RIN",
-            ratioX: 0.4,
+            ratioX: 0.2,
             ratioY: 0.15,
             scale: 1,
             alpha: 1
@@ -178,17 +181,31 @@ var properties = {
             scale: 1,
             alpha: 1
         },
+        FLAG_START: {
+            id : "FLAG_START",
+            ratioX: 0.1,
+            ratioY: 0.1,
+            scale: 1,
+            alpha: 1
+        },
+        FLAG_END: {
+            id : "FLAG_END",
+            ratioX: 0.9,
+            ratioY: 0.1,
+            scale: 1,
+            alpha: 1
+        }
     },
     ss: {
         RIN: {
             id : "SS_RIN",
             ratioX: 0.5,
-            ratioY: 0.6,
+            ratioY: 0.61,
             scale: 1,
             alpha: 1,
             frames: {
-                width: 378,
-                height: 378
+                width: 467,
+                height: 467
             },
             animations: {
                 N_wait: {
@@ -314,18 +331,18 @@ var properties = {
             text : "マラカスの練習中のりんちゃん！\r上下左右のボタンを向いているときにタップして\rしゃかしゃかさせよう！\r(キーボードの↑↓←→でもOK!)"
         },
         SCORE_COUNT: {
-            ratioX: 0.8,
-            ratioY: 0.2,
+            ratioX: 0.95,
+            ratioY: 0.18,
             size: 0.05,
             family: "Courier",
-            align: "center",
+            align: "right",
             lineHeight: 0.04,
             text: ""
         },
         GAMESTART_COUNT: {
             ratioX: 0.5,
-            ratioY: 0.3,
-            size: 0.08,
+            ratioY: 0.2,
+            size: 0.1,
             family: "Impact",
             align: "center",
             lineHeight: 0.07,
@@ -402,6 +419,10 @@ var properties = {
 var manifest = {
     image: [
         {
+            id : "TITLE_LOGO",
+            src: "img/TITLE_LOGO.png"
+        },
+        {
             id : "BACKGROUND",
             src: "img/BACKGROUND.png"
         },
@@ -464,6 +485,14 @@ var manifest = {
         {
             id : "BUTTON_TWITTER_GAMEOVER_RIN",
             src: "img/BUTTON_TWITTER_GAMEOVER_RIN.png"
+        },
+        {
+            id : "FLAG_START",
+            src: "img/FLAG_START.png"
+        },
+        {
+            id : "FLAG_END",
+            src: "img/FLAG_END.png"
         }
     ],
     ss:[
@@ -512,6 +541,12 @@ var manifest = {
         {
             id : "TURN_SWITCH",
             src: "sound/TURN_SWITCH.mp3"
+        }
+    ],
+    load: [
+        {
+            id : "LOAD_IMG",
+            src: "img/LOAD_KOTORI.png"
         }
     ],
     api: [
