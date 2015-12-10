@@ -56,12 +56,14 @@ function gameReady(){
 
 			addChildren([
 				_imageObj.BACKGROUND, 
+				_imageObj.RAMEN, 
+				_imageObj.FLAG_START,
+				_imageObj.FLAG_END,
 				_imageObj.BUTTON_LEFT, 
 				_imageObj.BUTTON_RIGHT, 
 				_imageObj.BUTTON_TOP, 
 				_imageObj.BUTTON_BOTTOM, 
 				_player.img, 
-				_imageObj.RAMEN, 
 				_textObj.SCORE_COUNT
 				]);
 
@@ -90,6 +92,10 @@ function gameStatusReset(){
 function processGame(){
 
 	_gameFrame ++;
+
+
+	// ボタンオブジェクトを作成
+
 
 	_textObj.SCORE_COUNT.text = _shakeCount + "しゃか！";
 

@@ -1,7 +1,6 @@
 window.onload = function(){
 
-
-	// ログインチェック
+	/*---------- ログインチェック ----------*/
 	// 完了後にコンテンツオブジェクトのセットアップを開始する
 	_deferredCheckLogin = $.Deferred();
 	setUserInfo().done(function(){
@@ -15,19 +14,20 @@ window.onload = function(){
 	});
 	_deferredCheckLogin.promise();
 
-
-	//ゲーム画面の初期
+	/*---------- ゲーム画面の初期化 ----------*/
 	_gameStage = new createjs.Stage("gameScrean");
 	_gameScrean = document.getElementById("gameScrean");
+	initGameScreen();	// 拡大率の計算、height, widthの設定
 
-	//拡大縮小率の計算
-	initGameScreenScale();
+	showText("loading...", 
+		_gameScrean.width*0.5, 
+		_gameScrean.height*0.5, 
+		_gameScrean.width*0.04, 
+		"Courier", 
+		"center", 
+		_gameScrean.width*0.04);
 
-	var loading = new createjs.Text();
-    setTextProperties(loading, _gameScrean.width*0.5, _gameScrean.height*0.5, _gameScrean.width*0.04, "Courier", "center", _gameScrean.width*0.04);
-    loading.text = "loading..."
-    _gameStage.addChild(loading);
-    _gameStage.update();
+	/*---------- 基本設定 ----------*/
 
 	//canvas要素内でのスマホでのスライドスクロール禁止
 	$(_gameScrean).on('touchmove.noScroll', function(e) {
@@ -39,7 +39,6 @@ window.onload = function(){
 		createjs.Touch.enable(_gameStage);
 	}
 
-
 	//ゲーム用タイマーの設定
     createjs.Ticker.setFPS(config.system.FPS);
 	createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
@@ -47,31 +46,27 @@ window.onload = function(){
 	// TODO createjsにcross originの画像を読み込まない
 	createjs.DisplayObject.suppressCrossDomainErrors = true;
 
-
-	//コンテンツのロードステートに移行
-	var ua = navigator.userAgent;
-
-	if(/iPhone/.test(ua)) {
+	/*---------- preloadStateへ移行 ----------*/
+	// iPhoneの場合、任意のイベントを実行前に音声を再生すると、音源が途切れる
+	if(/iPhone/.test(navigator.userAgent)) {
 	    _gameStage.removeAllChildren();
-	    var text = new createjs.Text();
-	    setTextProperties(text, _gameScrean.width*0.5, _gameScrean.height*0.5, _gameScrean.width*0.05, "Courier", "center", _gameScrean.width*0.04);
-	    text.text = "-Please tap on the display!-"
-
-	    _gameStage.addChild(text);
-	    _gameStage.update();
+	    showText("-Please tap on the display!-", 
+	    	_gameScrean.width*0.5, 
+	    	_gameScrean.height*0.5, 
+	    	_gameScrean.width*0.05, 
+	    	"Courier", 
+	    	"center", 
+	    	_gameScrean.width*0.04);
 
 	    window.addEventListener("touchstart", start);
-
 	}
 	else{
 		// ログイン確認後ロード画面へ遷移
-		loadState();
+		preloadState();
+	}
+
+	function start(){
+	    window.removeEventListener("touchstart", start);
+		preloadState();
 	}
 }
-
-
-function start(){
-    window.removeEventListener("touchstart", start);
-	loadState();
-}
-

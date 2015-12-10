@@ -9,7 +9,6 @@ var _gameScore;
 
 var _tickListener;
 
-var _queue;
 var _isSoundMute = false;
 
 var _playCharacter = "rin";
@@ -110,7 +109,7 @@ function registration(){
 
         alertify.confirm("ログインセッションが無効になっています。再ログインします。", function(result){
             if(result){
-                window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+                window.location.href = config.api.login + "?redirect_path=shakarin";
             }
         })
     });
@@ -231,7 +230,7 @@ function addAllEventListener(){
         alertify.confirm("ランキングシステムにログインします！", function(result){
             if(result){
                 _soundObj.OK.play("none",0,0,0,1,0);
-                window.location.href = config.api.origin + config.api.path.login + "?game_name=shakarin";
+                window.location.href = config.api.login + "?redirect_path=shakarin";
             }else{
                 _soundObj.BACK.play("none",0,0,0,1,0);
             }
@@ -243,7 +242,7 @@ function addAllEventListener(){
         alertify.confirm("ログアウトします。ランキング登録はログイン中のみ有効です。", function(result){
             if(result){
                 _soundObj.OK.play("none",0,0,0,1,0);
-                window.location.href = config.api.origin + config.api.path.logout + "?game_name=shakarin";
+                window.location.href = config.api.logout + "?redirect_path=shakarin";
             }else{
                 _soundObj.BACK.play("none",0,0,0,1,0);
             }
