@@ -15,17 +15,17 @@ var config = {
         firstCheckFrame: 10
     },
     api:{
-        login: "http://api.sokontokoro-factory.net/v1/auth/twitter/login",
+        login:  "http://api.sokontokoro-factory.net/v1/auth/twitter/login",
         logout: "http://api.sokontokoro-factory.net/v1/auth/twitter/logout/",
-        score: "http://api.sokontokoro-factory.net/v1/game/scores/shakarin/me/",
-        user: "http://api.sokontokoro-factory.net/v1/game/users/me/"
+        score:  "http://api.sokontokoro-factory.net/v1/game/scores/shakarin/me/",
+        user:   "http://api.sokontokoro-factory.net/v1/game/users/me/"
     },
     link: {
         t28_twitter: "https://twitter.com/t28_tatsuya",
         sokontokoro: "http://sokontokoro-factory.net",
-        sanzashi: "https://twitter.com/xxsanzashixx",
+        sanzashi:    "https://twitter.com/xxsanzashixx",
         soundeffect: "http://soundeffect-lab.info/",
-        on_jin: "http://on-jin.com/"
+        on_jin:      "http://on-jin.com/"
     }
 }
 
@@ -404,9 +404,9 @@ var properties = {
             text: "ランキングシステム　通信完了！"
         }
     },
-    api: {
+    asyncImage: {
         TWITTER_ICON: {
-            id : "TWITTER_ICON",
+            url : "",
             ratioX: 0,
             ratioY: 1,
             scale: 1.3,

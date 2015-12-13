@@ -1,18 +1,21 @@
 // ゲームスクリーンサイズ初期化用
-function initGameScreen(){
+function initScreenScale(height, width){
 
-    var height = config.system.gamescrean.height;   // 背景イラストの高さ
-    var width = config.system.gamescrean.width;     // 背景イラストの幅
-
+    var scale;
     if(window.innerHeight/window.innerWidth < height/width){
-        _screenScale = window.innerHeight/height;
+        scale = window.innerHeight/height;
     }else{
-        _screenScale = window.innerWidth/width;
+        scale = window.innerWidth/width;
     }
 
-    _gameScrean.height = height * _screenScale;
-    _gameScrean.width = width * _screenScale;
+    return scale;
+}
 
+function getScreen(elementId, height, width, scale){
+    var screen = document.getElementById(elementId);
+    screen.height = height * scale;
+    screen.width = width * scale;
+    return screen;
 }
 
 function addChildren(array){

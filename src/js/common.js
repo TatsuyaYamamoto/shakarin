@@ -15,9 +15,8 @@ var _playCharacter = "rin";
 var _player;
 var _shakeCount;
 
-var _isLogin = false;
 var _deferredCheckLogin;
-
+var _isLogin = false;
 
 // エレメントオブジェクト-----------------------------
 // 画像、スプライトシート、音声、テキスト、ユーザー情報
@@ -38,37 +37,35 @@ var _user = {
 
 // アイコン画像URL取得-------------
 
-function setUserInfo(){
+function deferredLoginSystem(){
 
-    var d = $.Deferred();
+    var deferred = $.Deferred();
 
-    var dfd1 = $.ajax({
+    var ajax = $.ajax({
         type: "GET",
-        url: config.api.origin + "/api/game/users/me",
-        xhrFields: {
-            withCredentials: true
-        }
-    });
-    var dfd2 = $.ajax({
-        type: "GET",
-        url: config.api.origin + "/api/twitter/users/me",
-        dataType: 'json',
+        url: config.api.user,
         xhrFields: {
             withCredentials: true
         }
     });
 
-    $.when(dfd1, dfd2).done(function(data1,data2){
+    $.when(ajax).done(function(data){
+        alertify.log("ランキングシステム ログイン中！", "success", 3000);
 
-        _user.id = data1[0].user_id;
-        _user.name = data1[0].user_name;
-        _user.iconURL = data2[0].profile_image_url.replace("_normal", "_bigger");
+        _user.id = data[0].user_id;
+        _user.name = data[0].user_name;
+        properties.asyncImage.TWITTER_ICON = _user.iconURL = data[0].iconURL;
+        // _user.iconURL = data[0].profile_image_url.replace("_normal", "_bigger");
 
-        d.resolve();
+        _isLogin = true;
+        deferred.resolve();
     }).fail(function(){
-        d.reject();
+        // 未ログインの場合は通知なし
+        _isLogin = false;
+        deferred.reject();
     });
-    return d.promise();
+
+    return deferred.promise()
 }
 
 // キーボードキー
