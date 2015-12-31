@@ -133,15 +133,29 @@ function registration(){
 }
 
 
+// tweet文言----------------
+function getTweetText(){
 
-    _gameStage.addChild(shape);
-    _gameStage.addChild(_textObj.REGISTRATION);
+    switch(_playCharacter){
+        case "rin":
+ 
+            if(_gameScore == 0){
+                return "凛「ちょっと寒くないかにゃー？」";
+            }
+            
+            var textTicket = Math.floor(Math.random() * 4)
+            switch(textTicket){
+                case 0:
+                    return "凛「ちょっと寒くないかにゃー？」";"凛「ちいさなマラカス♪しゃかしゃか"+_gameScore+"しゃかー！」";
+                case 1:
+                    return '凛「それより今日こそ先輩のところに行って"しゃかりんやります！"って言わなきゃ！」'+_gameScore+"しゃか！";
+                case 2 :
+                    return "凛「待って！しゃかしゃかするなら凛が！凛が！ 凛が"+_gameScore+"しゃかするの！！」";
+            }
 
-    // フェードインアニメーション
-    createjs.Tween.get(shape).to({alpha:1}, config.system.anime.registrationFeedTime);
-    createjs.Tween.get(_textObj.REGISTRATION).to({alpha:1}, config.system.anime.registrationFeedinTime);
+    }
+    return _gameScore + "しゃか！";
 }
-
 
 
 //イベントリスナー登録--------------------------------
@@ -190,10 +204,8 @@ function addAllEventListener(){
 
     // HOW --> メニュー
     _imageObj.BUTTON_BACK_MENU_FROM_HOW.addEventListener("mousedown",function(){
-        createjs.Ticker.removeEventListener("tick", _tickListener);
+        endHowToPlay();
         _soundObj.BACK.play("none",0,0,0,1,0);
-        //キーボード用keycodeevent削除
-        window.removeEventListener("keydown", keyDownEvent);
         menuState();    
     })
 
@@ -224,7 +236,7 @@ function addAllEventListener(){
         alertify.confirm("ランキングシステムにログインします！", function(result){
             if(result){
                 _soundObj.OK.play("none",0,0,0,1,0);
-                window.location.href = config.api.login + "?redirect_path=shakarin";
+                window.location.href = config.api.login;
             }else{
                 _soundObj.BACK.play("none",0,0,0,1,0);
             }
@@ -257,16 +269,21 @@ function addAllEventListener(){
     _textObj.LINK_SANZASHI.addEventListener("mousedown", function(){
         window.location.href = config.link.sanzashi;
     });
-    // _imageObj.BUTTON_TWITTER_TOP.addEventListener("mousedown", function(){
-    //     window.location.href=config.link.t28_twitter;
-    // });
-    // _ssObj.BUTTON_TWITTER_GAMEOVER.addEventListener("mousedown", function(){
-    //     window.location.href="https://twitter.com/intent/tweet?hashtags=しゃかりん！&text="+getTweetText()+"&url=http://games.sokontokoro-factory.net/shakarin/";
-    // });
 
+    // メニュー画面　twitter home リンク
+    _imageObj.BUTTON_TWITTER_TOP.addEventListener("mousedown", function(){
+        window.location.href=config.link.t28_twitter;
+    });
+
+    // メニュー画面　ランキングページ　リンク
     _imageObj.BUTTON_RANKING.addEventListener("mousedown",function(){
-        window.location.href = "http://games.sokontokoro-factory.net/ranking/?game_name=shakarin"
+        window.location.href = "http://games.sokontokoro-factory.net/ranking/?game=shakarin"
     })
+
+    // ゲームオーバー画面のつぶやきリンク
+    _imageObj.BUTTON_TWITTER_GAMEOVER_RIN.addEventListener("mousedown", function(){
+        window.location.href="https://twitter.com/intent/tweet?hashtags=しゃかりん！&text="+getTweetText()+"&url=http://games.sokontokoro-factory.net/shakarin/";
+    });
 
     /* サウンド用イベント */
     window.addEventListener("blur", function(){
