@@ -188,7 +188,7 @@ function addAllEventListener(){
 
     // メニュー --> ゲーム開始
     _imageObj.BUTTON_START.addEventListener("mousedown", function() {
-        
+
         removeTickEvent(_tickListener);
         _soundObj.ZENKAI.stop();
         _soundObj.OK.play("none",0,0,0,1,0);
@@ -255,7 +255,7 @@ function addAllEventListener(){
         alertify.confirm("ログアウトします。ランキング登録はログイン中のみ有効です。", function(result){
             if(result){
                 _soundObj.OK.play("none",0,0,0,1,0);
-                window.location.href = config.api.logout + "?redirect_path=shakarin";
+                window.location.href = config.api.logout + "?redirect=shakarin";
             }else{
                 _soundObj.BACK.play("none",0,0,0,1,0);
             }
