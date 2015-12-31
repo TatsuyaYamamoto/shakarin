@@ -14,6 +14,9 @@ var runSequence = require('run-sequence');		// タスクを非同期に実行す
 var license		= require('./src/license/license.json').join('\n');
 var config		= require('./config.secret.json');
 
+var slack 		= require('gulp-slack')({
+					url: config.slack.webhooks,
+					user: config.name});
 // ------------------------------------------------------------------
 
 gulp.task('hello', function(){
@@ -32,15 +35,20 @@ HOW TO USE
 	- pacage dirにパッケージング
 	- 本番用にconcat, minifyしたもの
 	- production用のindex.htmlを使用する
-- deploy_dev
+- deploy_dist
 	- 開発用サーバにdistパッケージをデプロイ
-- deploy_dev_package
-	- 開発用サーバにpackageパッケージをデプロイ
 
 */
 // コマンド -------------------------------------------------
 
-gulp.task('default', ['watch', 'webserver']);
+gulp.task('default', function(){
+	runSequence(
+		'dist',
+		[
+			'watch', 
+			'webserver'
+		]);
+});
 
 /* 開発用パッケージング */
 gulp.task('dist', function(){
@@ -92,14 +100,10 @@ gulp.task('webserver', function(){
 
 /* 開発サーバーへアップロード */
 // dist --> dev env.
-gulp.task('deploy_dev', function () {
-	deploy('dist/')
+gulp.task('deploy_dist', ['copyDistToDev'], function () {
+	slack('開発環境サーバーにパッケージを設置しました。\nhttp://'+config.ftp_dev.remotePath)
 });
-// package --> dev env.
-gulp.task('deploy_dev_package', function () {
-	deploy('package/')
-});
-function deploy(products){
+gulp.task('copyDistToDev', function(){
     var conn = ftp.create({
         host:     config.ftp_dev.connect.host,
         user:     config.ftp_dev.connect.user,
@@ -110,11 +114,15 @@ function deploy(products){
     var globs = [
         'dist/**/*'
     ];
-    return gulp.src( globs, { base: products, buffer: false } )
+    return gulp.src( globs, { base: 'dist/', buffer: false } )
         .pipe(conn.newer(config.ftp_dev.remotePath)) // only upload newer files
         .pipe(conn.dest(config.ftp_dev.remotePath));
-}
+})
 
+// テストタスク ---------------------------------------
+gulp.task('test', function() {
+
+});
 
 // files: src --> dist or package dir-------------------------------------------------
 /* HTML */
@@ -143,7 +151,7 @@ gulp.task('package_js', function(){
 	gulp.src('./src/js/**/*')
 		.pipe(plumber())
 		.pipe(concat('main.min.js'))
-		.pipe(uglify())
+		.pipe(uglify({compress:false}))
 		.pipe(header(license))
 		.pipe(gulp.dest('./package/'));
 
