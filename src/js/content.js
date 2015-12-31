@@ -54,8 +54,8 @@ function preloadStart(callback){
             }
             _deferredCheckLogin.done(function(){
                 for(var key in properties.asyncImage){
-                    var property = properties.image[key];
-                    _imageObj[key] = getImageContent(property)
+                    var property = properties.asyncImage[key];
+                    _imageObj[key] = getAsyncImageContent(property)
                 }
             }).fail(function(){
             }).always(function(){
@@ -80,16 +80,16 @@ function preloadStart(callback){
         image.regY = image.image.height/2;
         image.scaleY = image.scaleX = _screenScale * property.scale;
         image.alpha = property.alpha;
-
         return image;
     }
 
     function getAsyncImageContent(property){
+
         var image = new createjs.Bitmap(property.url);
         image.x = _gameScrean.width * property.ratioX;
         image.y = _gameScrean.height * property.ratioY;
-        image.regX = image.image.width/2;
-        image.regY = image.image.height/2;
+        // image.regX = image.width/2;
+        // image.regY = image.height/2;
         image.scaleY = image.scaleX = _screenScale * property.scale;
         image.alpha = property.alpha;
 

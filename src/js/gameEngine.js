@@ -11,11 +11,18 @@ function gameInit(){
 
 
 	//キーボード用keycodeevent登録
-	window.addEventListener("keydown", keyDownEvent);
+	window.addEventListener("keyup", keyDownEvent);
 
 
 	// ゲームスタートカウントスタート
-    _tickListener = createjs.Ticker.addEventListener("tick", gameReady);
+    // ランキング登録用トークン取得
+    if(_isLogin){
+		getSkntkrToken_deferred().done(function(){
+		    _tickListener = createjs.Ticker.addEventListener("tick", gameReady);
+		})
+    }else{
+	    _tickListener = createjs.Ticker.addEventListener("tick", gameReady);	
+    }
 	
 }
 
@@ -72,10 +79,8 @@ function gameReady(){
 			timerAnimation();
 		    //ゲーム処理開始
 			_tickListener = createjs.Ticker.addEventListener("tick", processGame);
-			//キーボード用keycodeevent登録
-			window.addEventListener("keydown", keyDownEvent);
 
-			_soundObj.GAME_LOOP.play("any",0,0,-1,1,0);
+			_soundObj.GAME_LOOP.play("any",0,0,0,1,0);
 
 			break;
 	}
@@ -204,20 +209,21 @@ function allButtonDisable(){
 
 function finish(){
 
-	_player.setDirection("N");
-	_player.wait();
+	// _player.setDirection("N");
+	// _player.wait();
+	_player.finish();
 
 	_gameScore = _shakeCount;
 	createjs.Tween.removeTweens(_imageObj.RAMEN);
-    _soundObj.GAME_LOOP.stop();
-	_soundObj.GAME_END.play("late",0,0,0,0.6,0);
+    // _soundObj.GAME_LOOP.stop();
+	// _soundObj.GAME_END.play("late",0,0,0,0.6,0);
 
 	// createjs.Ticker.reset();
     createjs.Ticker.removeEventListener("tick", _tickListener);
 
 
 	//キーボード用keycodeevent削除
-	window.removeEventListener("keydown", keyDownEvent);
+	window.removeEventListener("keyup", keyDownEvent);
 	//stateマシン内、ゲームオーバー状態に遷移
 	gameOverState();
 }

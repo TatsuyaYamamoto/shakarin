@@ -7,7 +7,7 @@ function howToPlayInit(){
     allButtonDisable();
 
     //キーボード用keycodeevent登録
-    window.addEventListener("keydown", keyDownEvent);
+    window.addEventListener("keyup", keyDownEvent);
     
     // switch(playCharacter){
     //     case "honoka":
@@ -47,4 +47,11 @@ function processHowToPlay(){
 
 	_gameFrame ++;
 	_gameStage.update();
+}
+
+
+function endHowToPlay(){
+        createjs.Ticker.removeEventListener("tick", _tickListener);
+        //キーボード用keycodeevent削除
+        window.removeEventListener("keyup", keyDownEvent);
 }

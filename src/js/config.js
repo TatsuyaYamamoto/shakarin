@@ -3,7 +3,7 @@
 var config = {
     system: {
         FPS: 30,
-        timeLength: 20000,
+        timeLength: 26000,
         gamescrean: {
             width: 640,
             height: 896
@@ -15,10 +15,11 @@ var config = {
         firstCheckFrame: 10
     },
     api:{
-        login:  "http://api.sokontokoro-factory.net/v1/auth/twitter/login",
+        login:  "http://api.sokontokoro-factory.net/v1/auth/twitter/login?redirect=shakarin",
         logout: "http://api.sokontokoro-factory.net/v1/auth/twitter/logout/",
         score:  "http://api.sokontokoro-factory.net/v1/game/scores/shakarin/me/",
-        user:   "http://api.sokontokoro-factory.net/v1/game/users/me/"
+        user:   "http://api.sokontokoro-factory.net/v1/game/users/me/",
+        token:  "http://api.sokontokoro-factory.net/v1/game/token/"
     },
     link: {
         t28_twitter: "https://twitter.com/t28_tatsuya",
@@ -156,14 +157,14 @@ var properties = {
         BUTTON_TWITTER_LOGIN: {
             id : "BUTTON_TWITTER_LOGIN",
             ratioX: 0.25,
-            ratioY: 0.95,
+            ratioY: 0.94,
             scale: 1,
             alpha: 1
         },
         BUTTON_TWITTER_LOGOUT: {
             id : "BUTTON_TWITTER_LOGOUT",
             ratioX: 0.4,
-            ratioY: 0.95,
+            ratioY: 0.94,
             scale: 1,
             alpha: 1
         },
@@ -246,6 +247,11 @@ var properties = {
                 },
                 B2: {
                     frames: [12]
+                },
+                FINISH: {
+                   frames: [13, 14],
+                    next: true,
+                    speed: 0.12
                 }
             },
             firstAnimation: "N_wait"
@@ -407,8 +413,8 @@ var properties = {
     asyncImage: {
         TWITTER_ICON: {
             url : "",
-            ratioX: 0,
-            ratioY: 1,
+            ratioX: 0.04,
+            ratioY: 0.91,
             scale: 1.3,
             alpha: 1          
         }

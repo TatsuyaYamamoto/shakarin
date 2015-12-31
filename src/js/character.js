@@ -59,3 +59,7 @@ Player.prototype.changeDirection = function(){
         _player.wait();
     }
 }
+
+Player.prototype.finish = function(){
+    this.img.gotoAndPlay("FINISH");
+}
