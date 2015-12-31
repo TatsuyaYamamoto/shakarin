@@ -18,6 +18,8 @@ var _shakeCount;
 var _deferredCheckLogin;
 var _isLogin = false;
 
+var _skntkrToken;
+
 // エレメントオブジェクト-----------------------------
 // 画像、スプライトシート、音声、テキスト、ユーザー情報
 
@@ -35,9 +37,9 @@ var _user = {
 
 
 
-// アイコン画像URL取得-------------
+// システムへログイン-------------
 
-function deferredLoginSystem(){
+function loginSystem_deferred(){
 
     var deferred = $.Deferred();
 
@@ -51,11 +53,9 @@ function deferredLoginSystem(){
 
     $.when(ajax).done(function(data){
         alertify.log("ランキングシステム ログイン中！", "success", 3000);
-
-        _user.id = data[0].user_id;
-        _user.name = data[0].user_name;
-        properties.asyncImage.TWITTER_ICON = _user.iconURL = data[0].iconURL;
-        // _user.iconURL = data[0].profile_image_url.replace("_normal", "_bigger");
+        _user.id = data.id;
+        _user.name = data.name;
+        properties.asyncImage.TWITTER_ICON.url = _user.iconURL = data.icon_url;
 
         _isLogin = true;
         deferred.resolve();
@@ -85,57 +85,54 @@ function keyDownEvent(event){
     }
 }
 
+// ランキング登録用トークン取得-------
+function getSkntkrToken_deferred(){
+    var deferred = $.Deferred();
+
+    $.ajax({
+        type: "GET",
+        url: config.api.token,
+        xhrFields: {
+            withCredentials: true
+        }
+    }).done(function(data, status, xhr) {
+        _skntkrToken = data;
+        deferred.resolve();
+    }).fail(function(){
+        alertify.confirm("ログインセッションが無効になっています。再ログインします。", function(result){
+            if(result){
+                window.location.href = config.api.login;
+            }
+        })
+        deferred.reject();
+    });
+    return deferred.promise()
+}
+
+
+
 // ランキング登録-------------
 function registration(){
 
     $.ajax({
         type: "POST",
-        url: config.api.origin + "/api/game/scores/shakarin",
+        url: config.api.score,
         xhrFields: {
             withCredentials: true
         },
-        contentType: 'application/json',
+        contentType:'application/json',
         data: JSON.stringify({
-            category: "",
-            point: _gameScore
+            'point': _gameScore,
+            'skntkt_token': _skntkrToken
         })
     }).done(function(data, status, xhr) {
         alertify.log("ランキングシステム　通信完了！", "success", 3000);
-        // drowRegistrationInfo();
     }).fail(function(){
-
-        alertify.confirm("ログインセッションが無効になっています。再ログインします。", function(result){
-            if(result){
-                window.location.href = config.api.login + "?redirect_path=shakarin";
-            }
-        })
+        alertify.log("ランキングシステムへの接続に失敗しました", "error", 3000);
     });
 }
 
 
-function drowRegistrationInfo(){
-    // Graphicsのインスタンスを作成します。
-    var graphics = new createjs.Graphics();
-    graphics.beginFill("#55acee");
-
-    var height = _textObj.REGISTRATION.getMeasuredHeight();
-    var width = _textObj.REGISTRATION.getMeasuredWidth()*1.5;
-
-    graphics
-         .moveTo(0,0)
-         .lineTo(width,0)
-         .lineTo(width,height)
-         .lineTo(0,height)
-         .closePath();
-
-    var shape = new createjs.Shape(graphics);
-    shape.regX = _textObj.REGISTRATION.getMeasuredWidth()/2;
-    shape.regY = _textObj.REGISTRATION.getMeasuredHeight()/2;
-    shape.x = _textObj.REGISTRATION.x * 0.5;
-    shape.y = _textObj.REGISTRATION.y + _textObj.REGISTRATION.getMeasuredHeight()/4;
-
-    shape.alpha = 0;
-    _textObj.REGISTRATION.alpha = 0;
 
     _gameStage.addChild(shape);
     _gameStage.addChild(_textObj.REGISTRATION);
