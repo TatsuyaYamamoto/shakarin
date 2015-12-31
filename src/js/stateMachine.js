@@ -62,7 +62,7 @@ function menuState(){
         _soundObj.ZENKAI.play("none",0,0,-1,0.4,0);
     }
 
-    _tickListener = createjs.Ticker.addEventListener("tick", function(){
+    _tickListener = addTickEvent(function(){
         _gameStage.update();
     });
 }
@@ -94,6 +94,9 @@ function gameState(){
 }
 // GAMEOVER画面------------------------------------------
 function gameOverState(){
+    // フィニッシュアニメーション
+    _player.finish();
+    
     _gameStage.removeAllChildren();
     addChildren([
         _imageObj.BACKGROUND,
@@ -112,7 +115,7 @@ function gameOverState(){
         registration(); // ランキング登録
     }
 
-    _tickListener = createjs.Ticker.addEventListener("tick", function(){
+    _tickListener = addTickEvent(function(){
         _gameStage.update();
     });
 }

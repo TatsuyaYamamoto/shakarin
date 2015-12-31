@@ -18,10 +18,10 @@ function gameInit(){
     // ランキング登録用トークン取得
     if(_isLogin){
 		getSkntkrToken_deferred().done(function(){
-		    _tickListener = createjs.Ticker.addEventListener("tick", gameReady);
+		    _tickListener = addTickEvent(gameReady);
 		})
     }else{
-	    _tickListener = createjs.Ticker.addEventListener("tick", gameReady);	
+	    _tickListener = addTickEvent(gameReady);
     }
 	
 }
@@ -59,7 +59,7 @@ function gameReady(){
 		    _soundObj.PI2.play();
 		    _gameStage.removeAllChildren();
 	    	gameStatusReset();
-		    createjs.Ticker.removeEventListener("tick", _tickListener);
+	    	removeTickEvent(_tickListener);
 
 			addChildren([
 				_imageObj.BACKGROUND, 
@@ -78,7 +78,7 @@ function gameReady(){
 		    // タイマーアニメーション開始
 			timerAnimation();
 		    //ゲーム処理開始
-			_tickListener = createjs.Ticker.addEventListener("tick", processGame);
+			_tickListener = addTickEvent(processGame);
 
 			_soundObj.GAME_LOOP.play("any",0,0,0,1,0);
 
@@ -208,23 +208,14 @@ function allButtonDisable(){
 // ゲーム終了------------------------------------------------------
 
 function finish(){
-
-	// _player.setDirection("N");
-	// _player.wait();
-	_player.finish();
-
+	// 得点登録
 	_gameScore = _shakeCount;
+
+	// イベント削除
 	createjs.Tween.removeTweens(_imageObj.RAMEN);
-    // _soundObj.GAME_LOOP.stop();
-	// _soundObj.GAME_END.play("late",0,0,0,0.6,0);
-
-	// createjs.Ticker.reset();
-    createjs.Ticker.removeEventListener("tick", _tickListener);
-
-
-	//キーボード用keycodeevent削除
+    removeTickEvent(_tickListener);
 	window.removeEventListener("keyup", keyDownEvent);
-	//stateマシン内、ゲームオーバー状態に遷移
+
 	gameOverState();
 }
 

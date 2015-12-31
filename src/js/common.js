@@ -156,9 +156,15 @@ function getTweetText(){
     }
     return _gameScore + "しゃか！";
 }
+// tickイベントadd, remove--------------------------------
+function addTickEvent(listener){
+    return createjs.Ticker.addEventListener("tick", listener);
+}
+function removeTickEvent(target){
+    createjs.Ticker.removeEventListener("tick", target);
+}
 
-
-//イベントリスナー登録--------------------------------
+//キーボードイベントリスナー登録--------------------------------
 
 function addAllEventListener(){
 
@@ -182,7 +188,8 @@ function addAllEventListener(){
 
     // メニュー --> ゲーム開始
     _imageObj.BUTTON_START.addEventListener("mousedown", function() {
-        createjs.Ticker.removeEventListener("tick", _tickListener);
+        
+        removeTickEvent(_tickListener);
         _soundObj.ZENKAI.stop();
         _soundObj.OK.play("none",0,0,0,1,0);
         gameState();
@@ -190,14 +197,14 @@ function addAllEventListener(){
 
     // メニュー --> HOW TO PLAY
     _imageObj.BUTTON_HOW.addEventListener("mousedown", function() {
-        createjs.Ticker.removeEventListener("tick", _tickListener);
+        removeTickEvent(_tickListener);
         _soundObj.OK.play("none",0,0,0,1,0);
         howToPlayState();
     });
 
     // メニュー --> クレジット
     _imageObj.BUTTON_CREDIT.addEventListener("mousedown",function(){
-        createjs.Ticker.removeEventListener("tick", _tickListener);
+        removeTickEvent(_tickListener);
         _soundObj.OK.play("none",0,0,0,1,0);
         creditState();      
     })
@@ -217,14 +224,14 @@ function addAllEventListener(){
 
     // ゲームオーバー --> メニュー
     _imageObj.BUTTON_BACK_MENU_FROM_GAME.addEventListener( 'mousedown', function() {
-        createjs.Ticker.removeEventListener("tick", _tickListener);
+        removeTickEvent(_tickListener);
         _soundObj.BACK.play("none",0,0,0,1,0);
         menuState();
     });
 
     // ゲームリスタート
     _imageObj.BUTTON_RESTART.addEventListener( 'mousedown', function() {
-        createjs.Ticker.removeEventListener("tick", _tickListener);
+        removeTickEvent(_tickListener);
         _soundObj.BACK.play("none",0,0,0,1,0);
         gameState();
     });

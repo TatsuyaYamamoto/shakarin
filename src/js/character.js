@@ -2,7 +2,7 @@
 function Player(playCharacter){
 
 
-    switch(playCharacter){
+    switch(_playCharacter){
         case "rin":
             this.img = _ssObj.RIN;
             break;
