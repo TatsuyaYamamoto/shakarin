@@ -146,11 +146,13 @@ function getTweetText(){
             var textTicket = Math.floor(Math.random() * 4)
             switch(textTicket){
                 case 0:
-                    return "凛「ちょっと寒くないかにゃー？」";"凛「ちいさなマラカス♪しゃかしゃか"+_gameScore+"しゃかー！」";
+                    return "凛「ちいさなマラカス♪しゃかしゃか"+_gameScore+"しゃかー！」";
                 case 1:
                     return '凛「それより今日こそ先輩のところに行って"しゃかりんやります！"って言わなきゃ！」'+_gameScore+"しゃか！";
                 case 2 :
                     return "凛「待って！しゃかしゃかするなら凛が！凛が！ 凛が"+_gameScore+"しゃかするの！！」";
+                case 3 :
+                    return "エリチカ？「" + _gameScore+"しゃかァ？認められないわァ」";
             }
 
     }

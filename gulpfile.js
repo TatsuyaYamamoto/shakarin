@@ -153,7 +153,7 @@ gulp.task('package_js', function(){
 		.pipe(concat('main.min.js'))
 		.pipe(uglify({compress:false}))
 		.pipe(header(license))
-		.pipe(gulp.dest('./package/'));
+		.pipe(gulp.dest('./package/js/'));
 
 })
 
