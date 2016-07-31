@@ -1,4 +1,5 @@
 // 設定ファイル---------------------------------
+var apiServerOrigin = "http://localhost:25252";
 
 var config = {
     system: {
@@ -15,11 +16,10 @@ var config = {
         firstCheckFrame: 10
     },
     api:{
-        login:  "http://api.sokontokoro-factory.net/v1/auth/twitter/login?redirect=shakarin",
-        logout: "http://api.sokontokoro-factory.net/v1/auth/twitter/logout/",
-        score:  "http://api.sokontokoro-factory.net/v1/game/scores/shakarin/me/",
-        user:   "http://api.sokontokoro-factory.net/v1/game/users/me/",
-        token:  "http://api.sokontokoro-factory.net/v1/game/token/"
+        login:  apiServerOrigin + "/lovelive/auth/twitter/login?redirect=shakarin",
+        logout: apiServerOrigin + "/lovelive/auth/twitter/logout/",
+        score:  apiServerOrigin + "/lovelive/scores/shakarin/me/",
+        user:   apiServerOrigin + "/lovelive/users/me/"
     },
     link: {
         t28_twitter: "https://twitter.com/t28_tatsuya",

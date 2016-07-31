@@ -15,15 +15,7 @@ function gameInit(){
 
 
 	// ゲームスタートカウントスタート
-    // ランキング登録用トークン取得
-    if(_isLogin){
-		getSkntkrToken_deferred().done(function(){
-		    _tickListener = addTickEvent(gameReady);
-		})
-    }else{
-	    _tickListener = addTickEvent(gameReady);
-    }
-	
+	_tickListener = addTickEvent(gameReady);
 }
 
 

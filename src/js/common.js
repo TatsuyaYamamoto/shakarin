@@ -18,8 +18,6 @@ var _shakeCount;
 var _deferredCheckLogin;
 var _isLogin = false;
 
-var _skntkrToken;
-
 // エレメントオブジェクト-----------------------------
 // 画像、スプライトシート、音声、テキスト、ユーザー情報
 
@@ -31,15 +29,17 @@ var _user = {
     id: "",
     name: "",
     iconURL: ""
-}
-
-
-
+};
 
 
 // システムへログイン-------------
 
-function loginSystem_deferred(){
+
+/**
+ * ログイン処理を非同期で実行する。
+ * @returns {*}
+ */
+function requestCheckingLogging(){
 
     var deferred = $.Deferred();
 
@@ -52,10 +52,13 @@ function loginSystem_deferred(){
     });
 
     $.when(ajax).done(function(data){
+        // ログイン完了通知
         alertify.log("ランキングシステム ログイン中！", "success", 3000);
+
+        // response body格納
         _user.id = data.id;
         _user.name = data.name;
-        properties.asyncImage.TWITTER_ICON.url = _user.iconURL = data.icon_url;
+        properties.asyncImage.TWITTER_ICON.url = data.icon_url;
 
         _isLogin = true;
         deferred.resolve();
@@ -68,7 +71,10 @@ function loginSystem_deferred(){
     return deferred.promise()
 }
 
-// キーボードキー
+/**
+ * キーボードイベント
+ * @param event
+ */
 function keyDownEvent(event){
 
     if(event.which == 37 && _imageObj.BUTTON_LEFT.mouseEnabled){
@@ -85,33 +91,10 @@ function keyDownEvent(event){
     }
 }
 
-// ランキング登録用トークン取得-------
-function getSkntkrToken_deferred(){
-    var deferred = $.Deferred();
 
-    $.ajax({
-        type: "GET",
-        url: config.api.token,
-        xhrFields: {
-            withCredentials: true
-        }
-    }).done(function(data, status, xhr) {
-        _skntkrToken = data;
-        deferred.resolve();
-    }).fail(function(){
-        alertify.confirm("ログインセッションが無効になっています。再ログインします。", function(result){
-            if(result){
-                window.location.href = config.api.login;
-            }
-        })
-        deferred.reject();
-    });
-    return deferred.promise()
-}
-
-
-
-// ランキング登録-------------
+/**
+ * ランキング登録
+ */
 function registration(){
 
     $.ajax({
@@ -122,13 +105,16 @@ function registration(){
         },
         contentType:'application/json',
         data: JSON.stringify({
-            'point': _gameScore,
-            'skntkt_token': _skntkrToken
+            'point': _gameScore
         })
-    }).done(function(data, status, xhr) {
+    }).done(function(data, textStatus, jqXHR) {
         alertify.log("ランキングシステム　通信完了！", "success", 3000);
-    }).fail(function(){
-        alertify.log("ランキングシステムへの接続に失敗しました", "error", 3000);
+    }).fail(function( jqXHR, textStatus, errorThrown){
+        if(textStatus == 401){
+            alertify.log("ログインセッションが切れてしまいました...再ログインして下さい。", "error", 3000);
+        }else{
+            alertify.log("ランキングシステムへの接続に失敗しました...", "error", 3000);
+        }
     });
 }
 
