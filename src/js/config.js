@@ -1,7 +1,7 @@
 // 設定ファイル---------------------------------
-var apiServerOrigin = "http://localhost:25252";
+export var apiServerOrigin = "http://localhost:25252";
 
-var config = {
+export var config = {
     system: {
         FPS: 30,
         timeLength: 26000,
@@ -12,14 +12,15 @@ var config = {
         anime: {
             registrationFeedinTime: 500
         },
-        difficultyLength: 0.3, 
+        difficultyLength: 0.3,
         firstCheckFrame: 10
     },
     api:{
-        login:  apiServerOrigin + "/lovelive/auth/twitter/login?redirect=shakarin",
-        logout: apiServerOrigin + "/lovelive/auth/twitter/logout/",
-        score:  apiServerOrigin + "/lovelive/scores/shakarin/me/",
-        user:   apiServerOrigin + "/lovelive/users/me/"
+        login:      apiServerOrigin + "/lovelive/auth/twitter/login?redirect=shakarin",
+        logout:     apiServerOrigin + "/lovelive/auth/twitter/logout/",
+        score:      apiServerOrigin + "/lovelive/scores/shakarin/me/",
+        user:       apiServerOrigin + "/lovelive/users/me/",
+        playlog:    apiServerOrigin + "/lovelive/scores/shakarin/playlog/"
     },
     link: {
         t28_twitter: "https://twitter.com/t28_tatsuya",
@@ -28,12 +29,15 @@ var config = {
         soundeffect: "http://soundeffect-lab.info/",
         on_jin:      "http://on-jin.com/"
     }
-}
+};
 
 
 //定数----------------------------------------
 
-var properties = {
+export var properties = {
+    player: {
+        RIN: 'rin'
+    },
     image: {
         TITLE_LOGO: {
             id : "TITLE_LOGO",
@@ -249,7 +253,7 @@ var properties = {
                     frames: [12]
                 },
                 FINISH: {
-                   frames: [13, 14],
+                    frames: [13, 14],
                     next: true,
                     speed: 0.12
                 }
@@ -406,7 +410,7 @@ var properties = {
             family: "Courier",
             align: "center",
             color: "#ffffff",
-            lineHeight: 0.1, 
+            lineHeight: 0.1,
             text: "ランキングシステム　通信完了！"
         }
     },
@@ -416,13 +420,13 @@ var properties = {
             ratioX: 0.04,
             ratioY: 0.91,
             scale: 1.3,
-            alpha: 1          
+            alpha: 1
         }
     }
 }
 
 // 画像、音声ファイル---------------------------------
-var manifest = {
+export var manifest = {
     image: [
         {
             id : "TITLE_LOGO",
@@ -561,4 +565,4 @@ var manifest = {
             src: ""
         }
     ]
-}
+};
