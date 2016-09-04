@@ -10,10 +10,6 @@ export var config = {
             width: 640,
             height: 896
         },
-        anime: {
-            registrationFeedinTime: 500
-        },
-        difficultyLength: 0.3,
         firstCheckFrame: 10
     },
     api:{
@@ -403,16 +399,6 @@ export var properties = {
             align: "center",
             lineHeight: 0.05,
             text: "プロジェクトラブライブ！\rhttp://www.lovelive-anime.jp"
-        },
-        REGISTRATION: {
-            ratioX: 0.4,
-            ratioY: 0.9,
-            size: 0.04,
-            family: "Courier",
-            align: "center",
-            color: "#ffffff",
-            lineHeight: 0.1,
-            text: "ランキングシステム　通信完了！"
         }
     },
     asyncImage: {
@@ -558,12 +544,6 @@ export var manifest = {
         {
             id : "LOAD_IMG",
             src: "img/LOAD_KOTORI.png"
-        }
-    ],
-    api: [
-        {
-            id : "TWITTER_ICON",
-            src: ""
         }
     ]
 };

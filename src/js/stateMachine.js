@@ -1,5 +1,4 @@
 import State from './state.js'
-import { properties } from './config.js'
 import Util from './util.js'
 import Tick from './tick.js'
 

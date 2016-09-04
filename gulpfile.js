@@ -48,8 +48,6 @@ HOW TO USE
 	- 開発用サーバにdistパッケージをデプロイ
 
 */
-// コマンド -------------------------------------------------
-
 gulp.task('default', function(){
 	runSequence(
 		'dist',
@@ -58,7 +56,16 @@ gulp.task('default', function(){
 			'webserver'
 		]);
 });
+gulp.task('watch', function() {
+	gulp.watch(config.watchTarget, ['webpack'])
+});
 
+gulp.task('webserver', function() {
+	gulp.src(config.webServerRootDir)
+		.pipe(webserver(config.webserverOpts));
+});
+
+// パッケージング -------------------------------------------------
 /* 開発用パッケージング */
 gulp.task('dist', function(){
 	runSequence(
@@ -85,31 +92,7 @@ gulp.task('dist_pro', function(){
 		]);	
 });
 
-// タスクモジュール-------------------------------------------------
-
-/* 監視タスク　*/
-gulp.task('watch', function() {
-	gulp.watch(config.watchTarget, ['webpack'])
-});
-
-gulp.task('webpack',function() {
-	gulp.src('')
-		.pipe(webpack(webpackConf))
-		.pipe(gulp.dest(webpackConf.output.path))
-});
-
-gulp.task('webpack_pro',function() {
-	gulp.src('')
-		.pipe(webpack(webpackConfPro))
-		.pipe(gulp.dest(webpackConfPro.output.path))
-});
-
-gulp.task('webserver', function() {
-	gulp.src(config.webServerRootDir)
-		.pipe(webserver(config.webserverOpts));
-});
-
-
+// FTPタスク-------------------------------------------------
 
 /* 開発サーバーへアップロード */
 // dist --> dev env.
@@ -132,12 +115,20 @@ gulp.task('copyDistToDev', function(){
         .pipe(conn.dest(config_secret.ftp_dev.remotePath));
 });
 
-// テストタスク ---------------------------------------
-gulp.task('test', function() {
 
+// ビルドタスク ---------------------------------------
+gulp.task('webpack',function() {
+	gulp.src('')
+		.pipe(webpack(webpackConf))
+		.pipe(gulp.dest(webpackConf.output.path))
 });
 
-// files: src --> dist or package dir-------------------------------------------------
+gulp.task('webpack_pro',function() {
+	gulp.src('')
+		.pipe(webpack(webpackConfPro))
+		.pipe(gulp.dest(webpackConfPro.output.path))
+});
+
 /* HTML */
 // html files: src --> dist
 gulp.task('dist_html', function(){
