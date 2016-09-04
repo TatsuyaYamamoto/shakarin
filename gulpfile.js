@@ -1,27 +1,36 @@
 var gulp 		= require('gulp');
 var imagemin 	= require('gulp-imagemin');
-var cssmin 		= require('gulp-minify-css');
-var concat		= require('gulp-concat');		// ファイルを１つにまとめる
-var uglify 		= require('gulp-uglify');		// minify js
-var plumber 	= require('gulp-plumber');
-var webserver	= require('gulp-webserver');
-var header		= require('gulp-header');
 var gutil		= require('gulp-util');
 var ftp			= require('vinyl-ftp');
 var del 		= require('del');				// ファイル削除
 var runSequence = require('run-sequence');		// タスクを非同期に実行する
 
-var license		= require('./src/license/license.json').join('\n');
-var config		= require('./config.secret.json');
+var webpack = require("gulp-webpack");
+var webserver   = require('gulp-webserver');
+var webpackConf = require('./webpack.config.js');
+var webpackConfPro = require('./webpack.config.pro.js');
+
+var config_secret	= require('./config.secret.json');
 
 var slack 		= require('gulp-slack')({
-					url: config.slack.webhooks,
-					user: config.name});
+					url: config_secret.slack.webhooks,
+					user: config_secret.name});
+
+var config = {
+	watchTarget:        './src/js/**/*.js',
+	webServerRootDir:	'./dist/development/',
+	webserverOpts: {
+		host: 'localhost',
+		port: 8000,
+		livereload: false
+	}
+};
+
 // ------------------------------------------------------------------
 
 gulp.task('hello', function(){
 	console.log("（・８・）");
-})
+});
 /**
 HOW TO USE
 
@@ -45,7 +54,7 @@ gulp.task('default', function(){
 	runSequence(
 		'dist',
 		[
-			'watch', 
+			'watch',
 			'webserver'
 		]);
 });
@@ -55,69 +64,73 @@ gulp.task('dist', function(){
 	runSequence(
 		'del_dist',
 		[
-			'dist_html', 
-			'dist_js', 
-			'dist_img', 
-			'dist_css', 
-			'dist_lib', 
+			'webpack',
+			'dist_html',
+			'dist_img',
+			'dist_lib',
 			'dist_sound'
 		]);
-})
+});
 
 /* 本番用パッケージング */
-gulp.task('package', function(){
+gulp.task('dist_pro', function(){
 	runSequence(
-		'del_package',
+		'del_dist',
 		[
-			'package_html', 
-			'package_js', 
-			'package_img', 
-			'package_css', 
-			'package_lib', 
-			'package_sound'
+			'webpack_pro',
+			'dist_pro_html',
+			'dist_pro_img',
+			'dist_pro_lib',
+			'dist_pro_sound'
 		]);	
-})
+});
 
 // タスクモジュール-------------------------------------------------
 
 /* 監視タスク　*/
-gulp.task('watch', function(){
-	gulp.watch('./src/js/*', ['dist_js']);
-	gulp.watch('./src/**/*.html', ['dist_js']);
-})
+gulp.task('watch', function() {
+	gulp.watch(config.watchTarget, ['webpack'])
+});
 
-/* ローカルサーバー */
-gulp.task('webserver', function(){
-	gulp.src('./dist')
-		.pipe(
-			webserver({
-				host: 'localhost',
-				livereload: true
-			}))
-})
+gulp.task('webpack',function() {
+	gulp.src('')
+		.pipe(webpack(webpackConf))
+		.pipe(gulp.dest(webpackConf.output.path))
+});
+
+gulp.task('webpack_pro',function() {
+	gulp.src('')
+		.pipe(webpack(webpackConfPro))
+		.pipe(gulp.dest(webpackConfPro.output.path))
+});
+
+gulp.task('webserver', function() {
+	gulp.src(config.webServerRootDir)
+		.pipe(webserver(config.webserverOpts));
+});
 
 
 
 /* 開発サーバーへアップロード */
 // dist --> dev env.
-gulp.task('deploy_dist', ['copyDistToDev'], function () {
-	slack('開発環境サーバーにパッケージを設置しました。\nhttp://'+config.ftp_dev.remotePath)
+gulp.task('upload', ['copyDistToDev'], function () {
+	slack('開発環境サーバーにパッケージを設置しました。\nhttp://'+config_secret.ftp_dev.remotePath)
 });
 gulp.task('copyDistToDev', function(){
     var conn = ftp.create({
-        host:     config.ftp_dev.connect.host,
-        user:     config.ftp_dev.connect.user,
-        password: config.ftp_dev.connect.password,
+        host:     config_secret.ftp_dev.connect.host,
+        user:     config_secret.ftp_dev.connect.user,
+        password: config_secret.ftp_dev.connect.password,
         parallel: 2,
         log:      gutil.log
     });
     var globs = [
-        'dist/**/*'
+        'dist/production/**/*'
     ];
-    return gulp.src( globs, { base: 'dist/', buffer: false } )
-        .pipe(conn.newer(config.ftp_dev.remotePath)) // only upload newer files
-        .pipe(conn.dest(config.ftp_dev.remotePath));
-})
+    return gulp.src( globs, { base: 'dist/production/', buffer: false } )
+        .pipe(conn.newer(config_secret.ftp_dev.remotePath)) // only upload newer files
+        .pipe(conn.dest(config_secret.ftp_dev.remotePath));
+});
 
 // テストタスク ---------------------------------------
 gulp.task('test', function() {
@@ -129,91 +142,54 @@ gulp.task('test', function() {
 // html files: src --> dist
 gulp.task('dist_html', function(){
 	gulp.src('./src/html/development/*.html')
-		.pipe(gulp.dest('./dist'));
+		.pipe(gulp.dest('./dist/development/'));
 });
 // html files: src --> package
-gulp.task('package_html', function(){
+gulp.task('dist_pro_html', function(){
 	gulp.src('./src/html/production/*.html')
-		.pipe(gulp.dest('./package'));
+		.pipe(gulp.dest('./dist/production/'));
 });
-
-
-/* Javascript */
-// js files: src --> dist
-gulp.task('dist_js', function(){
-	gulp.src('./src/js/*')
-		.pipe(plumber())
-		.pipe(gulp.dest('./dist/js/'));
-
-})
-// js files: src --> package
-gulp.task('package_js', function(){
-	gulp.src('./src/js/**/*')
-		.pipe(plumber())
-		.pipe(concat('main.min.js'))
-		.pipe(uglify({compress:false}))
-		.pipe(header(license))
-		.pipe(gulp.dest('./package/js/'));
-
-})
 
 /* lib */
 // lib files: src --> dist
 gulp.task('dist_lib', function(){
 	gulp.src('./src/lib/**/*')
-		.pipe(gulp.dest('./dist/lib/'));
-})
+		.pipe(gulp.dest('./dist/development/lib/'));
+});
 // lib files: src --> package
-gulp.task('package_lib', function(){
+gulp.task('dist_pro_lib', function(){
 	gulp.src('./src/lib/**/*')
-		.pipe(gulp.dest('./package/lib/'));
-})
-
-/* css */
-// css files: src --> dist
-gulp.task('dist_css', function(){
-	gulp.src('./src/css/**/*')
-		.pipe(gulp.dest('./dist/css/'));
-})
-// css files: src --> package
-gulp.task('package_css', function(){
-	gulp.src('./src/css/**/*')
-		.pipe(concat('main.min.css'))
-		.pipe(cssmin())
-		.pipe(gulp.dest('./package/css/'));
-})
+		.pipe(gulp.dest('./dist/production/lib/'));
+});
 
 /* image */
 // img files: src --> dist
 gulp.task('dist_img', function(){
 	gulp.src('./src/img/**/*')
 		.pipe(imagemin())
-		.pipe(gulp.dest('./dist/img/'));
-})
+		.pipe(gulp.dest('./dist/development/img/'));
+});
 // img files: src --> package
-gulp.task('package_img', function(){
+gulp.task('dist_pro_img', function(){
 	gulp.src('./src/img/**/*')
 		.pipe(imagemin())
-		.pipe(gulp.dest('./package/img/'));
-})
+		.pipe(gulp.dest('./dist/production/img/'));
+});
 
 /* sound */
 // img files: src --> dist
 gulp.task('dist_sound', function(){
 	gulp.src('./src/sound/**/*')
-		.pipe(gulp.dest('./dist/sound/'));
-})
+		.pipe(gulp.dest('./dist/development/sound/'));
+});
 // img files: src --> package
-gulp.task('package_sound', function(){
+gulp.task('dist_pro_sound', function(){
 	gulp.src('./src/sound/**/*')
-		.pipe(gulp.dest('./package/sound/'));
-})
+		.pipe(gulp.dest('./dist/production/sound/'));
+});
 
 /* delete */
 gulp.task('del_dist', function(){
 	del(['dist'], "");
 });
-gulp.task('del_package', function(){
-	del(['package'], "");
-}); 
 
