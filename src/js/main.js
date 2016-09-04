@@ -56,7 +56,7 @@ window.onload = function(){
 
 	/*---------- StateMachien起動 ----------*/
 	// iPhoneの場合、任意のイベントを実行前に音声を再生すると、音源が途切れる
-	if(/iPhone/.test(navigator.userAgent)) {
+	if(/(iPhone|iPad)/.test(navigator.userAgent)) {
 		State.gameStage.removeAllChildren();
 		showText("-Please tap on the display!-",
 			State.gameScrean.width*0.5,
