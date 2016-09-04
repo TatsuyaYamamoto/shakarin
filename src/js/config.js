@@ -1,5 +1,6 @@
 // 設定ファイル---------------------------------
-export var apiServerOrigin = "http://localhost:25252";
+const apiServerOrigin = "http://ec2-52-68-207-235.ap-northeast-1.compute.amazonaws.com";
+const contextPath = "/lovelive-test";
 
 export var config = {
     system: {
@@ -16,11 +17,11 @@ export var config = {
         firstCheckFrame: 10
     },
     api:{
-        login:      apiServerOrigin + "/lovelive/auth/twitter/login?redirect=shakarin",
-        logout:     apiServerOrigin + "/lovelive/auth/twitter/logout/",
-        score:      apiServerOrigin + "/lovelive/scores/shakarin/me/",
-        user:       apiServerOrigin + "/lovelive/users/me/",
-        playlog:    apiServerOrigin + "/lovelive/scores/shakarin/playlog/"
+        login:      apiServerOrigin + contextPath + "/auth/twitter/login?redirect=shakarin",
+        logout:     apiServerOrigin + contextPath + "/auth/twitter/logout/",
+        score:      apiServerOrigin + contextPath + "/scores/shakarin/me/",
+        user:       apiServerOrigin + contextPath + "/users/me/",
+        playlog:    apiServerOrigin + contextPath + "/scores/shakarin/playlog/"
     },
     link: {
         t28_twitter: "https://twitter.com/t28_tatsuya",
