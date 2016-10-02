@@ -31,13 +31,12 @@ export default class Util{
         }
     }
 
-    static showText(text, x, y, size, family, align, height){
+    static showText(text, x, y, size, family, align){
         var textObj = new createjs.Text();
         textObj.x = x;
         textObj.y = y;
         textObj.font = size + "px " + family;
         textObj.textAlign = align;
-        textObj.lineHeight = height;
         textObj.text = text;
 
         State.gameStage.addChild(textObj);
