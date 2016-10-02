@@ -1,6 +1,6 @@
 // 設定ファイル---------------------------------
-const apiServerOrigin = "http://ec2-52-68-207-235.ap-northeast-1.compute.amazonaws.com";
-const contextPath = "/lovelive-test";
+const apiServerOrigin = "http://api.sokontokoro-factory.net";
+const contextPath = "/lovelive";
 
 export var config = {
     system: {
