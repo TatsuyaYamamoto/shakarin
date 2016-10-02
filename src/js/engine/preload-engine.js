@@ -1,9 +1,10 @@
 import State from '../state.js';
-import { config, properties, manifest } from '../config.js';
+import loadImageBase64 from '../loadImageBase64.js'
+import { properties, manifest } from '../config.js';
 
 export default class PreloadState{
-    constructor(callback){
-        this.queue = new createjs.LoadQueue();
+    constructor(tick, callback){
+        this.tick = tick;
         this.callback = callback;
     }
 
@@ -11,74 +12,101 @@ export default class PreloadState{
      * ContentStateのエントリーメソッド
      */
     start(){
-        // ローディングアニメーション
-        var q = new createjs.LoadQueue();
-        q.setMaxConnections(6);
+        this.loadAnimeImage = this.getLoadAnimeImage();
+        createjs.Tween.get(this.loadAnimeImage, {loop:true}).to({rotation:360}, 1000);
+        this.loadAnimeText = this.getLoadAnimeText();
 
-        q.loadManifest(manifest.load);
-        q.addEventListener("complete", ()=>{
+        State.gameStage.removeAllChildren();
+        State.gameStage.addChild(this.loadAnimeImage);
+        State.gameStage.addChild(this.loadAnimeText);
 
-            var bitmap = new createjs.Bitmap(q.getResult("LOAD_IMG"));
-            bitmap.scaleY = bitmap.scaleX = State.screenScale;
-            bitmap.x = State.gameScrean.width*0.5;
-            bitmap.y = State.gameScrean.height*0.5;
-            bitmap.regX = bitmap.image.width/2;
-            bitmap.regY = bitmap.image.height/2;
-
-            createjs.Tween.get(bitmap, {loop:true})
-                .to({rotation:360}, 1000);
-
-            State.gameStage.removeAllChildren();
-            State.gameStage.addChild(bitmap);
-
-            this.loadContents();
+        /* アニメーション用tickを開始して、読み込み開始 */
+        this.tick.add(()=>{
+            State.gameStage.update();
         });
+
+        this.getLoadingQueue().load();
     }
 
+    onComplete(queue){
+        // すべてのコンテンツに設定を付与する
+        Object.keys(properties.ss).forEach((key)=> {
+            const prop = properties.ss[key];
+            State.object.ss[key] = this.getSpriteSheetContents(prop, queue.getResult(prop.id));
+        });
+        Object.keys(properties.sound).forEach((key)=> {
+            State.object.sound[key] = this.getSoundContent(properties.sound[key]);
+        });
+        Object.keys(properties.text).forEach((key)=> {
+            State.object.text[key] = this.getTextContent(properties.text[key]);
+        });
+        Object.keys(properties.image).forEach((key)=> {
+            const prop = properties.image[key];
+            State.object.image[key] = this.getImageContent(prop, queue.getResult(prop.id));
+        });
 
-    loadContents(){
-        this.queue.installPlugin(createjs.Sound);
-        this.queue.setMaxConnections(6);
-
-        //マニフェストファイルを読み込む----------
-        this.queue.loadManifest(manifest.image);
-        this.queue.loadManifest(manifest.ss);
-        this.queue.loadManifest(manifest.sound);
-
-        this.queue.addEventListener("complete", ()=>{
-            // すべてのコンテンツに設定を付与する
-            Object.keys(properties.ss).forEach((key)=> {
-                State.object.ss[key] = this.getSpriteSheetContents(properties.ss[key]);
-            });
-            Object.keys(properties.sound).forEach((key)=> {
-                State.object.sound[key] = this.getSoundContent(properties.sound[key]);
-            });
-            Object.keys(properties.text).forEach((key)=> {
-                State.object.text[key] = this.getTextContent(properties.text[key]);
-            });
-            Object.keys(properties.image).forEach((key)=> {
-                State.object.image[key] = this.getImageContent(properties.image[key]);
-            });
-
-            State.deferredCheckLogin.then(
-                (response)=>{
-                    Object.keys(properties.asyncImage).forEach((key)=> {
-                        State.object.image[key] = this.getAsyncImageContent(properties.asyncImage[key]);
-                    });
-                    this.callback();
-                },
-                (error)=>{
-                    this.callback();
+        State.deferredCheckLogin.then(
+            (response)=>{
+                Object.keys(properties.asyncImage).forEach((key)=> {
+                    State.object.image[key] = this.getAsyncImageContent(properties.asyncImage[key]);
                 });
-        });
+                this.tick.remove();
+                this.callback();
+            },
+            (error)=>{
+                this.tick.remove();
+                this.callback();
+            });
     }
 
+    onProgress(event){
+        this.loadAnimeText.text = `loading...${Math.floor(event.loaded * 100)}%`
+    }
 
+    // preload engine用queueの構築 -----------------------------------
+    getLoadingQueue(){
+        const queue = new createjs.LoadQueue();
 
+        queue.installPlugin(createjs.Sound);
+        queue.setMaxConnections(6);
+
+        queue.loadManifest(manifest.image, false);
+        queue.loadManifest(manifest.ss, false);
+        queue.loadManifest(manifest.sound, false);
+
+        queue.on("progress", (event)=>{
+            this.onProgress(event);
+        }, this);
+        queue.on("complete", ()=>{
+            this.onComplete(queue);
+        }, this);
+
+        return queue;
+    }
+
+    getLoadAnimeImage(){
+        const loadImage = new createjs.Bitmap(loadImageBase64);
+        loadImage.scaleY = loadImage.scaleX = State.screenScale;
+        loadImage.x = State.gameScrean.width * 0.5;
+        loadImage.y = State.gameScrean.height * 0.5;
+        loadImage.regX = loadImage.image.width * 0.5;
+        loadImage.regY = loadImage.image.height * 0.5;
+
+        return loadImage;
+    }
+    getLoadAnimeText(){
+        const loadText = new createjs.Text();
+        loadText.x = State.gameScrean.width * 1/2;
+        loadText.y = State.gameScrean.height * 7/8;
+        loadText.font = State.gameScrean.width * 0.05 + "px " + "Courier";
+        loadText.textAlign = "center";
+
+        return loadText;
+    }
 
     //ロードしたコンテンツをセット------------------------------------------
-    getImageContent(property){
-        var image = new createjs.Bitmap(this.queue.getResult(property.id));
+    getImageContent(property, loadedImage){
+        var image = new createjs.Bitmap(loadedImage);
         image.x = State.gameScrean.width * property.ratioX;
         image.y = State.gameScrean.height * property.ratioY;
         image.regX = image.image.width/2;
@@ -93,20 +121,15 @@ export default class PreloadState{
         var image = new createjs.Bitmap(property.url);
         image.x = State.gameScrean.width * property.ratioX;
         image.y = State.gameScrean.height * property.ratioY;
-        // image.regX = image.width/2;
-        // image.regY = image.height/2;
         image.scaleY = image.scaleX = State.screenScale * property.scale;
         image.alpha = property.alpha;
-
-        // _imageObj.TWITTER_ICON.regX = 0;
-        // _imageObj.TWITTER_ICON.regY = 73;
 
         return image;
     }
 
-    getSpriteSheetContents(property){
+    getSpriteSheetContents(property, loadedImage){
         var spriteSheet = new createjs.SpriteSheet({
-            images:[this.queue.getResult(property.id)],
+            images:[loadedImage],
             frames: property.frames,
             animations: property.animations
         });

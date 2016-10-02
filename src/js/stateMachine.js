@@ -37,13 +37,9 @@ export default class StateMachine{
      * ロード画面
      */
     preloadState(){
-        this.tick.add(()=>{
-            State.gameStage.update();
-        });
-        new PreloadEngine(()=>{
-            this.topState();
-            this.tick.remove();
-        }).start();
+        new PreloadEngine(this.tick,
+            ()=>{this.topState();}
+        ).start();
     }
 
     /*************************************
