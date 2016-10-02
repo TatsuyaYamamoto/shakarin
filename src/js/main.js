@@ -21,13 +21,12 @@ window.onload = function(){
 		config.system.gamescrean.width,
 		State.screenScale);
 
-	Util.showText("loading...",
+	Util.showText("booting up",
 		State.gameScrean.width*0.5,
 		State.gameScrean.height*0.5,
 		State.gameScrean.width*0.04,
 		"Courier",
-		"center",
-		State.gameScrean.width*0.04);
+		"center");
 
 	/*---------- 基本設定 ----------*/
 
@@ -58,13 +57,12 @@ window.onload = function(){
 	// iPhoneの場合、任意のイベントを実行前に音声を再生すると、音源が途切れる
 	if(/(iPhone|iPad)/.test(navigator.userAgent)) {
 		State.gameStage.removeAllChildren();
-		showText("-Please tap on the display!-",
+		Util.showText("-Please tap on the display!-",
 			State.gameScrean.width*0.5,
 			State.gameScrean.height*0.5,
 			State.gameScrean.width*0.05,
 			"Courier",
-			"center",
-			State.gameScrean.width*0.04);
+			"center");
 
 		window.addEventListener("touchstart", start);
 	}
