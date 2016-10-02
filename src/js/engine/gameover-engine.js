@@ -62,7 +62,10 @@ export default class GameoverEngine {
         };
         const tweet = ()=>{
             window.location.href=
-                `https://twitter.com/intent/tweet?hashtags=しゃかりん！&text=${this.getTweetText()}&url=http://games.sokontokoro-factory.net/shakarin/`;
+`https://twitter.com/intent/tweet
+?hashtags=しゃかりん！+%23そこんところ工房
+&text=${this.getTweetText()}
+&url=http://games.sokontokoro-factory.net/shakarin/`;
         };
 
         return {
