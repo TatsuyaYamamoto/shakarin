@@ -94,7 +94,7 @@ export default class GameoverEngine {
                     case 0:
                         return `凛「ちいさなマラカス♪しゃかしゃか${State.gameScore}しゃかー！」`;
                     case 1:
-                        return '凛「それより今日こそ先輩のところに行って"しゃかりんやります！"って言わなきゃ！」'+_gameScore+"しゃか！";
+                        return `凛「それより今日こそ先輩のところに行って"しゃかりんやります！"って言わなきゃ！」${State.gameScore}しゃか！`
                     case 2 :
                         return `凛「待って！しゃかしゃかするなら凛が！凛が！ 凛が${State.gameScore}しゃかするの！！」`;
                     case 3 :
