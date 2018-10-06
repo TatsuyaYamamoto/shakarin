@@ -1,3 +1,7 @@
 .DS_Store
-lib/createjs-2015.05.21.min.js
-lib/jquery-1.11.3.min.js
+dist/
+package/
+bower_components/
+node_modules/
+config.secret.json
+.idea/
